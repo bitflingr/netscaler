@@ -1,5 +1,12 @@
 module Netscaler
   class Adapter
+    def session
+      return @session
+    end
+    def session=(value)
+      @session = value
+    end
+
 
     :protected
 
