@@ -1,7 +1,7 @@
 require 'netscaler/netscaler_service'
 
 module Netscaler
-  class LoadBalancing
+  class LoadBalancing < NetscalerService
     def initialize(netscaler)
       @netscaler=netscaler
     end
