@@ -19,8 +19,8 @@ Jeweler::Tasks.new do |gem|
   gem.license = "MIT"
   gem.summary = 'Netscaler api working against the Citrix Nitro api.'
   gem.description = 'Netscaler api working against the Citrix Nitro api.'
-  gem.email = "jeremy@scarcemedia.com"
-  gem.authors = ["Jeremy Custenborder"]
+  gem.email = ["jeremy@scarcemedia.com", "david.andrew@webtrends.com"]
+  gem.authors = ["Jeremy Custenborder", "David Andrew"]
   gem.add_dependency 'json'
   gem.add_dependency 'rest-client'
   # dependencies defined in Gemfile

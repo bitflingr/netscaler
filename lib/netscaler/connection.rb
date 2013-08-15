@@ -25,7 +25,7 @@ module Netscaler
       @adapter = HttpAdapter.new :hostname => options['hostname']
 
       @load_balancing = LoadBalancing.new self
-      @services = Service.new self
+      @service = Service.new self
       @servicegroups = ServiceGroup.new self
       @servers = Server.new self
     end

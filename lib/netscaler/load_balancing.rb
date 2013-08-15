@@ -14,10 +14,8 @@ module Netscaler
       return @netscaler.adapter.get("config/lbvserver/")
     end
 
-    def get_lbvserver_binding(args={})
-      raise ArgumentError, 'payload cannot be null' if args.nil?
-      validate_payload(args, %w(name))
-      return @netscaler.adapter.get("config/lbvserver_binding/#{args[:name]}", args)
+    def get_lbvserver_binding(payload)
+      return @netscaler.adapter.get("config/lbvserver_binding/#{payload}")
     end
 
     def add_lbvserver(payload)
@@ -30,6 +28,12 @@ module Netscaler
       raise ArgumentError, 'payload cannot be null' if payload.nil?
       validate_payload(payload, %w(name servicegroupname))
       return @netscaler.adapter.post_no_body("config/lbvserver_servicegroup_binding/#{payload['name']}?action=bind/", {'lbvserver_servicegroup_binding' => payload})
+    end
+
+    def add_lbvserver_service_binding(payload)
+      raise ArgumentError, 'payload cannot be null' if payload.nil?
+      validate_payload(payload, %w(name servicename))
+      return @netscaler.adapter.post_no_body("config/lbvserver_service_binding/#{payload['name']}?action=bind/", {'lbvserver_service_binding' => payload})
     end
   end
 end
