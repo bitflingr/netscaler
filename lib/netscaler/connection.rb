@@ -4,6 +4,7 @@ require 'json'
 
 require 'netscaler/server'
 require 'netscaler/service'
+require 'netscaler/servicegroup'
 require 'netscaler/load_balancing'
 require 'netscaler/http_adapter'
 require 'netscaler/adapter'
@@ -24,7 +25,8 @@ module Netscaler
       @adapter = HttpAdapter.new :hostname => options['hostname']
 
       @load_balancing = LoadBalancing.new self
-      @services = Service.new self
+      @service = Service.new self
+      @servicegroups = ServiceGroup.new self
       @servers = Server.new self
     end
 
@@ -36,8 +38,12 @@ module Netscaler
       @adapter=value
     end
 
-    def services
-      return @services
+    def service
+      return @service
+    end
+
+    def servicegroups
+      return @servicegroups
     end
 
     def load_balancing
@@ -49,7 +55,7 @@ module Netscaler
     end
 
     def session
-      return @session
+      return @adapter.session
     end
 
     def login()
@@ -59,12 +65,12 @@ module Netscaler
       }
 
       result = @adapter.post('config/login', { 'login' => payload})
-      @session = result['sessionid']
-      return @session
+      @adapter.session = result['sessionid']
+      return @adapter.session
     end
 
     def logout
-      result = post_no_body('config/logout', {'logout'=>{}})
+      result = @adapter.post_no_body('config/logout', {'logout'=>{}})
     end
   end
 end

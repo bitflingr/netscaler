@@ -9,7 +9,7 @@ module Netscaler
     def add_server(server)
       raise ArgumentError, 'server cannot be null' if server.nil?
       validate_payload(server, %w(name ipaddress))
-      return @netscaler.post_no_body('config/server/', {'server' => server})
+      return @netscaler.adapter.post_no_body('config/server/', {'server' => server})
     end
   end
 end
