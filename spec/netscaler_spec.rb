@@ -24,7 +24,7 @@ describe Netscaler do
   context 'when logging in' do
     it 'returns a session' do
       netscaler = Netscaler::Connection.new 'username'=> 'foo', 'hostname' => 'bar', 'password' => 'asdf'
-      netscaler.adapter = Netscaler::MockAdapter.new :body => '{ "errorcode": 0, "message": "Done", "severity": "NONE", "sessionid": "##074E17E8CD4C9E95A206C2A5E543D82BCDA57F16A7BE74F985733D6C241B" }'
+      netscaler.adapter = Netscaler::MockAdapter.new :body => '{ "errorcode": 0, "message": "Done", "sessionid": "##074E17E8CD4C9E95A206C2A5E543D82BCDA57F16A7BE74F985733D6C241B" }'
       result = netscaler.login
       result.should be_a_kind_of(String)
       result.should == "##074E17E8CD4C9E95A206C2A5E543D82BCDA57F16A7BE74F985733D6C241B"
