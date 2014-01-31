@@ -34,7 +34,7 @@ module Netscaler
     def lbmonitor_servicegroup_unbinding(payload)
       raise ArgumentError, 'payload cannot be null' if payload.nil?
       validate_payload(payload, %w(serviceGroupName monitorName))
-      return @netscaler.adapter.post_no_body("config/lbmonitor_servicegroup_binding/#{payload['monitorName']}?action=unbind", "lbmonitor_servicegroup_unbinding" => payload)
+      return @netscaler.adapter.post_no_body("config/lbmonitor_servicegroup_binding/#{payload['monitorName']}?action=unbind", "lbmonitor_servicegroup_binding" => payload)
     end
 
     def bind_servicegroup_servicegroupmember(payload)
