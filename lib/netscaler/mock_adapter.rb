@@ -1,5 +1,4 @@
 require 'netscaler/adapter'
-#require 'json'
 module Netscaler
   class MockAdapter < Adapter
 
