@@ -12,9 +12,9 @@ module Netscaler
 
     def prepare_payload(data)
       if data.is_a?(String)
-        post_data = data
+        post_data = "object=#{data}"
       else
-        post_data = data.to_json
+        post_data = "object=#{data.to_json}"
       end
       return post_data
     end
@@ -32,8 +32,8 @@ module Netscaler
     end
 
     def check_error(payload)
-      if payload['severity'] =~ /error/i
-        raise ArgumentError, "ErrorCode #{payload['errorcode']} Severity #{payload['severity']} -> #{payload['message']}"
+      if payload['errorcode'] != 0
+        raise Exception, "ErrorCode #{payload['errorcode']} -> #{payload['message']}"
       end
     end
 
