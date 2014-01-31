@@ -11,7 +11,7 @@ module Netscaler
     def post_no_body(part, data, args={})
       url = get_uri(part)
       options = prepare_options(args)
-      options[:content_type] = :json#'application/json'
+      options[:content_type] = 'application/x-www-form-urlencoded'
 
       post_data = prepare_payload(data)
       @site[url].post post_data, options
@@ -20,7 +20,7 @@ module Netscaler
     def post(part, data, args={})
       url = get_uri(part)
       options = prepare_options(args)
-      options[:content_type] = :json#'application/json'
+      options[:content_type] = 'application/x-www-form-urlencoded'
 
       post_data = prepare_payload(data)
       @site[url].post post_data, options do |response, request, result|
