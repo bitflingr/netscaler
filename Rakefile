@@ -14,15 +14,15 @@ require 'rake'
 require 'jeweler'
 Jeweler::Tasks.new do |gem|
   # gem is a Gem::Specification... see http://docs.rubygems.org/read/chapter/20 for more options
-  gem.name = "netscaler"
-  gem.homepage = "http://github.com/jcustenborder/netscaler"
-  gem.license = "MIT"
+  gem.name = 'netscaler'
+  gem.homepage = 'http://github.com/GravityLabs/netscaler'
+  gem.license = 'MIT'
   gem.summary = 'Netscaler api working against the Citrix Nitro api.'
-  gem.description = 'Netscaler api working against the Citrix Nitro api.'
-  gem.email = ["jeremy@scarcemedia.com", "david.andrew@webtrends.com"]
-  gem.authors = ["Jeremy Custenborder", "David Andrew"]
-  gem.add_dependency 'json'
-  gem.add_dependency 'rest-client'
+  gem.description = 'Netscaler api working against the Citrix Nitro api.  Currently supports Nitro 9.3.  Hope to add support for 10.X.  Currently has support for som basics such as adding servers/services/servicegroups.'
+  gem.email = %w(jeremy@scarcemedia.com david.andrew@webtrends.com jarrett.irons@gmail.com)
+  gem.authors = ['Jeremy Custenborder', 'David Andrew', 'Jarrett Irons']
+  #gem.add_dependency 'json'
+  #gem.add_dependency 'rest-client'
   # dependencies defined in Gemfile
 end
 Jeweler::RubygemsDotOrgTasks.new

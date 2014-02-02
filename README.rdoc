@@ -1,8 +1,18 @@
-= netscaler
+= Netscaler Gem
 
-Description goes here.
+A gem that uses the Netscaler {Nitro API}[http://support.citrix.com/proddocs/topic/netscaler-main-api-10-map/ns-nitro-wrapper-con.html] to access configs and stats.  This has been tested only on Netscaler 9.3.  Hoping to have Netscaler 10.0 support added in the near future.
 
-== Contributing to netscaler
+= THIS IS PRE-ALPHA!!!
+
+It is currently *Pre-Alpha* hence the 0-dot version and is suseptible to methods, classes and modules being renamed, added or deleted.  I will try my best to back support as much as i can but will provide release notes of changes.  Would love to get community support, i have access to a Netscaler and will add this to the spec as well down the road.
+
+== TODO
+
+* Add new definitions for deleting netscaler object entities
+* Add stats
+* Add support for Nitro 10.0, 10.1
+
+== Contributing to Netscaler Gem
  
 * Check out the latest master to make sure the feature hasn't been implemented or the bug hasn't been fixed yet.
 * Check out the issue tracker to make sure someone already hasn't requested it and/or contributed it.
