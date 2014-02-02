@@ -2,6 +2,7 @@ require 'rest_client'
 require 'uri'
 require 'json'
 
+
 require 'netscaler/server'
 require 'netscaler/service'
 require 'netscaler/servicegroup'
@@ -13,17 +14,16 @@ module Netscaler
   class Connection
     def initialize(options={})
       missing_options=[]
-      %w(username password hostname).each do |required_option|
-        missing_options << required_option unless options.has_key?(required_option)
+      options = Netscaler.hash_hack(options)
+      [:username, :password, :hostname].each do |required_option|
+        missing_options << required_option unless options[required_option] != nil
       end
 
       raise ArgumentError, "Required options are missing. #{missing_options.join(', ')}" if missing_options.length > 0
 
-      @username = options['username']
-      @password = options['password']
-
-      @adapter = HttpAdapter.new :hostname => "https://#{options['hostname']}", :username => @username, :password => @password
-
+      @username = options[:username]
+      @password = options[:password]
+      @adapter = HttpAdapter.new :hostname => "https://#{options[:hostname]}", :username => @username, :password => @password
       @load_balancing = LoadBalancing.new self
       @service = Service.new self
       @servicegroups = ServiceGroup.new self
