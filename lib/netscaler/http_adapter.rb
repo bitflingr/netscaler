@@ -35,7 +35,16 @@ module Netscaler
       @site[url].get options do |response, request, result|
         return process_result(result, response)
       end
-
     end
+
+    def delete(part, args={})
+      url = get_uri(part)
+      options = prepare_options(args)
+
+      @site[url].delete options do |response, request, result|
+        return process_result(result, response)
+      end
+    end
+
   end
 end
