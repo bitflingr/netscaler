@@ -64,10 +64,10 @@ describe Netscaler::ServiceGroup do
       }.should raise_error(ArgumentError, /serviceGroupName/)
     end
 
-    it 'an IP address is required' do
+    it 'a server entity is required' do
       expect {
         connection.servicegroups.bind_servicegroup_servicegroupmember({ 'serviceGroupName' => 'test-serviceGroup', 'port' => '8080' })
-      }.should raise_error(ArgumentError, /ip/)
+      }.should raise_error(ArgumentError, /serverName/)
     end
 
     it 'a port is required' do
@@ -86,10 +86,10 @@ describe Netscaler::ServiceGroup do
       }.should raise_error(ArgumentError, /serviceGroupName/)
     end
 
-    it 'an IP address is required' do
+    it 'a server entity is required' do
       expect {
         connection.servicegroups.unbind_servicegroup_servicegroupmember({ 'serviceGroupName' => 'test-serviceGroup', 'port' => '8080' })
-      }.should raise_error(ArgumentError, /ip/)
+      }.should raise_error(ArgumentError, /serverName/)
     end
 
     it 'a port is required' do

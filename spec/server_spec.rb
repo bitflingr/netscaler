@@ -14,10 +14,10 @@ describe Netscaler::Server do
       }.should raise_error(ArgumentError, /name/)
     end
 
-    it 'a ipaddress is required' do
+    it 'a domain is required' do
       expect {
         connection.servers.add_server({'name'=>'hostname'})
-      }.should raise_error(ArgumentError, /ipaddress/)
+      }.should raise_error(ArgumentError, /domain/)
     end
   end
 end
