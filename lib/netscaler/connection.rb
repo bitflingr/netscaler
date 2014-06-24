@@ -9,6 +9,7 @@ require 'netscaler/servicegroup'
 require 'netscaler/load_balancing'
 require 'netscaler/http_adapter'
 require 'netscaler/adapter'
+require 'netscaler/policy'
 
 module Netscaler
   class Connection
