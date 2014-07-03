@@ -26,9 +26,10 @@ module Netscaler
       @password = options[:password]
       @adapter = HttpAdapter.new :hostname => "https://#{options[:hostname]}", :username => @username, :password => @password
       @load_balancing = LoadBalancing.new self
-      @service = Service.new self
+      @service = Service
       @servicegroups = ServiceGroup.new self
       @servers = Server.new self
+      @policy = Policy.new self
     end
 
     def adapter
@@ -49,6 +50,10 @@ module Netscaler
 
     def load_balancing
       return @load_balancing
+    end
+
+    def policy
+      @policy
     end
 
     def servers
