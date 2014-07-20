@@ -34,5 +34,24 @@ module Netscaler
       #  return process_result(result, response)
       #end
     end
+
+    def post_no_body(part, data, args={})
+      url = get_uri(part)
+      options = prepare_options(args)
+      options[:content_type] = :json #'application/x-www-form-urlencoded'
+      post_data = prepare_payload(data)
+      #@site[url].post post_data, options
+      #puts "POST /#{url}\n#{post_data}"
+      return process_result(@result, @response)
+    end
+
+    def get(part, args={})
+      url = get_uri(part)
+      options = prepare_options(args)
+      options[:content_type] = :json
+      #puts "GET /#{url}"
+      return process_result(@result, @response)
+    end
+
   end
 end

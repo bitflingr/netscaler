@@ -10,6 +10,8 @@ group :development do
   gem "rdoc", "~> 3.12"
   gem "bundler"
   gem "jeweler", "~> 1.8.8"
+  gem 'simplecov'
+  gem 'simplecov-rcov'
 end
 
 gem 'rest-client'
