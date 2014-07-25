@@ -6,27 +6,39 @@ module Netscaler
       @netscaler=netscaler
     end
 
-    def add_servicegroup(payload)
+    def add(payload)
       raise ArgumentError, 'payload cannot be null' if payload.nil?
       payload = Netscaler.hash_hack(payload)
       validate_payload(payload, [:serviceGroupName, :serviceType])
       return @netscaler.adapter.post_no_body("config/servicegroup/", "servicegroup" => payload)
     end
 
-    def remove_servicegroup(payload)
+    def add_servicegroup(payload)
+      self.add(payload)
+    end
+
+    def remove(payload)
       raise ArgumentError, 'payload cannot be null' if payload.nil?
       payload = Netscaler.hash_hack(payload)
       validate_payload(payload, [:serviceGroupName])
       return @netscaler.adapter.delete("config/servicegroup/#{payload[:serviceGroupName]}")
     end
 
-    def get_servicegroup(payload)
-      raise ArgumentError, 'arg must contain name of servicegroup!' if payload.nil?
+    def remove_servicegroup(payload)
+      self.remove(payload)
+    end
+
+    def show(payload)
+      return @netscaler.adapter.get("config/servicegroup/", args) if payload.nil?
       return @netscaler.adapter.get("config/servicegroup/#{payload}")
     end
 
-    def get_servicegroups(args={})
-      return @netscaler.adapter.get("config/servicegroup/", args)
+    def get_servicegroup(payload)
+      self.show(payload)
+    end
+
+    def get_servicegroups(payload)
+      self.show(payload)
     end
 
     def get_servicegroup_servicegroupmember_bindings(payload)

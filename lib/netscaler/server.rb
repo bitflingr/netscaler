@@ -6,7 +6,7 @@ module Netscaler
       @netscaler = netscaler
     end
 
-    def add_server(server)
+    def add(server)
       raise ArgumentError, 'server cannot be null' if server.nil?
       server = Netscaler.hash_hack(server)
       if server[:ipaddress] != nil then
@@ -16,6 +16,10 @@ module Netscaler
       end
 
       return @netscaler.adapter.post_no_body('config/server/', {'server' => server})
+    end
+
+    def add_server(server)
+      self.add server
     end
   end
 end
