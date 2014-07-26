@@ -10,6 +10,7 @@ require 'netscaler/load_balancing'
 require 'netscaler/http_adapter'
 require 'netscaler/adapter'
 require 'netscaler/policy'
+require 'netscaler/lb'
 
 module Netscaler
   class Connection
@@ -30,6 +31,7 @@ module Netscaler
       @servicegroups = ServiceGroup.new self
       @servers = Server.new self
       @policy = Policy.new self
+      @lb = Lb.new self
     end
 
     def adapter
@@ -54,6 +56,10 @@ module Netscaler
 
     def policy
       @policy
+    end
+
+    def lb
+      @lb
     end
 
     def servers
