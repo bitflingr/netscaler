@@ -8,7 +8,7 @@ module Netscaler
         @netscaler = netscaler
       end
 
-      def bind(payload)
+      def bind(payload) # :args: :monitorName => 'http', :entityName => 'foo' :entityType => '[service|servicegroup]'
         raise ArgumentError, 'payload cannot be null' if payload.nil?
         validate_payload(payload, [:monitorName, :entityName, :entityType])
         valid_entityTypes = %w(service servicegroup)
@@ -20,7 +20,7 @@ module Netscaler
                                                 {'params' => {'action' => 'bind'}, "lbmonitor_#{payload[:entityType]}_binding" => new_payload})
       end
 
-      def unbind(payload)
+      def unbind(payload) # :args: :monitorName => 'http', :entityName => 'foo' :entityType => '[service|servicegroup]'
         raise ArgumentError, 'payload cannot be null' if payload.nil?
         validate_payload(payload, [:monitorName, :entityName, :entityType])
         valid_entityTypes = %w(service servicegroup)
