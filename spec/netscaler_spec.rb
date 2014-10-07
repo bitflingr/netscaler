@@ -19,6 +19,16 @@ describe Netscaler do
         netscaler = Netscaler::Connection.new 'username'=> 'foo', 'hostname' => 'bar'
       }.should raise_error(ArgumentError, /password/)
     end
+    it 'verify_ssl should be true' do
+      netscaler = Netscaler::Connection.new 'username'=> 'foo', 'hostname' => 'bar', 'password' => 'baz'
+      netscaler.verify_ssl == true
+    end
+    context 'if setting verify_ssl to false' do
+      it 'verify_ssl should be false' do
+        netscaler = Netscaler::Connection.new 'username'=> 'foo', 'hostname' => 'bar', 'password' => 'baz', 'verify_ssl' => false
+        netscaler.verify_ssl == false
+      end
+    end
   end
 
   context 'when logging in' do
