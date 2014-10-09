@@ -1,4 +1,5 @@
 require 'netscaler/lb/monitor'
+require 'netscaler/lb/vserver'
 
 module Netscaler
   class Lb
@@ -9,6 +10,10 @@ module Netscaler
 
     def monitor
       Monitor.new @netscaler
+    end
+
+    def vserver
+      Vserver.new @netscaler
     end
 
   end
