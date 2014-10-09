@@ -23,9 +23,10 @@ module Netscaler
 
       raise ArgumentError, "Required options are missing. #{missing_options.join(', ')}" if missing_options.length > 0
 
-      @username = options[:username]
-      @password = options[:password]
-      @adapter = HttpAdapter.new :hostname => "https://#{options[:hostname]}", :username => @username, :password => @password
+      @username   = options[:username]
+      @password   = options[:password]
+      @verify_ssl = options[:verify_ssl].nil? ? true : options[:verify_ssl]
+      @adapter = HttpAdapter.new :hostname => "https://#{options[:hostname]}", :username => @username, :password => @password, :verify_ssl => @verify_ssl
       @load_balancing = LoadBalancing.new self
       @service = Service.new self
       @servicegroups = ServiceGroup.new self
@@ -68,6 +69,10 @@ module Netscaler
 
     def session
       return @adapter.session
+    end
+
+    def verify_ssl
+      return @verify_ssl
     end
 
     def login()

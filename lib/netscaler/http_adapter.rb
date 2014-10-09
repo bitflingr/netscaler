@@ -5,7 +5,11 @@ require 'json'
 module Netscaler
   class HttpAdapter < Adapter
     def initialize(args)
-      @site=RestClient::Resource.new args[:hostname], args[:username], args[:password]
+      @site = RestClient::Resource.new(args[:hostname], {
+        :user       => args[:username],
+        :password   => args[:password],
+        :verify_ssl => args[:verify_ssl]
+      })
     end
 
     def post_no_body(part, data, args={})
