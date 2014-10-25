@@ -1,5 +1,7 @@
 require 'netscaler/lb/monitor'
 require 'netscaler/lb/vserver'
+require 'netscaler/lb/vserver/bind'
+require 'netscaler/lb/vserver/unbind'
 
 module Netscaler
   class Lb
