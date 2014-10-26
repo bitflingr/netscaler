@@ -53,5 +53,11 @@ module Netscaler
       return process_result(@result, @response)
     end
 
+    def delete(part, args={})
+      url = get_uri(part)
+      options = prepare_options(args)
+      return process_result(@result, @response)
+    end
+
   end
 end
