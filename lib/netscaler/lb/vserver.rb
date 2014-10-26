@@ -8,10 +8,13 @@ module Netscaler
       end
 
       def show(payload={})
-        if payload[:name] == nil then
+        if payload[:name] != nil then
+          validate_payload(payload, [:name])
+          return @netscaler.adapter.get("config/lbvserver/#{payload[:name]}")
+        elsif payload == {} then
           return @netscaler.adapter.get('config/lbvserver/')
         else
-          return @netscaler.adapter.get("config/lbvserver/#{payload[:name]}", args)
+          raise ArgumentError, 'payload supplied must have been missing :name'
         end
       end
 
@@ -21,13 +24,6 @@ module Netscaler
         validate_payload(payload, [:name])
         return @netscaler.adapter.get("config/lbvserver_binding/#{payload[:name]}")
       end
-
-      # def add(payload)
-      #   raise ArgumentError, 'payload cannot be null' if payload.nil?
-      #   payload = Netscaler.hash_hack(payload)
-      #   validate_payload(payload, [:name, :serviceType, :ipv46, :port])
-      #   return @netscaler.adapter.post_no_body('config/lbvserver/', {'lbvserver' => payload})
-      # end
 
       def remove(payload) # :args: :name
         raise ArgumentError, 'payload cannot be null' if payload.nil?
