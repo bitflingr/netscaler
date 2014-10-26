@@ -9,8 +9,6 @@ describe Netscaler::Lb::Vserver do
 
   context 'when adding a new lbvserver' do
     it 'a name is required' do
-      #netscaler.adapter = Netscaler::MockAdapter.new :status_code=>400, :body => '{ "errorcode": 1095, "message": "Required argument missing [name]", "severity": "ERROR" }',
-
       expect {
         connection.lb.vserver.add(:serviceType => 'HTTP', :port => '80', :ipv46 => '1.1.1.1')
       }.should raise_error(ArgumentError, /name/)
@@ -100,84 +98,78 @@ describe Netscaler::Lb::Vserver do
       result = connection.lb.vserver.show_binding :name => 'foo'
       result.should be_kind_of(Hash)
     end
-
   end
 
+  context 'when [un]binding services to lb vserver' do
+    it 'should throw an error if :name arg is not given' do
+      expect {
+        connection.lb.vserver.bind.service :serviceName => 'foo'
+      }.should raise_error(ArgumentError, /name/)
+      expect {
+        connection.lb.vserver.unbind.service :serviceName => 'foo'
+      }.should raise_error(ArgumentError, /name/)
+    end
 
-  # context 'when binding a new lbmonitor to lbvserver' do
-  #
-  #   it 'a Service group name is required' do
-  #     expect {
-  #       connection.lbvservers.lbmonitor_lbvserver_binding({ 'monitorName' => 'TCP' })
-  #     }.should raise_error(ArgumentError, /serviceGroupName/)
-  #   end
-  #
-  #   it 'a lbmonitor name is required' do
-  #     expect {
-  #       connection.lbvservers.lbmonitor_lbvserver_binding({ 'serviceGroupName' => 'test-serviceGroup' })
-  #     }.should raise_error(ArgumentError, /monitorName/)
-  #   end
-  #
-  # end
-  #
-  # context 'when unbinding a lbmonitor from lbvserver' do
-  #
-  #   it 'a Service group name is required' do
-  #     expect {
-  #       connection.lbvservers.lbmonitor_lbvserver_binding({ 'monitorName' => 'TCP' })
-  #     }.should raise_error(ArgumentError, /serviceGroupName/)
-  #   end
-  #
-  #   it 'a lbmonitor name is required' do
-  #     expect {
-  #       connection.lbvservers.lbmonitor_lbvserver_binding({ 'serviceGroupName' => 'test-serviceGroup' })
-  #     }.should raise_error(ArgumentError, /monitorName/)
-  #   end
-  #
-  # end
-  #
-  # context 'when binding a new server to lbvserver' do
-  #
-  #   it 'a Service group name is required' do
-  #     expect {
-  #       connection.lbvservers.bind_lbvserver_lbvservermember({ 'port'=> '8080', 'ip' => '199.199.199.199' })
-  #     }.should raise_error(ArgumentError, /serviceGroupName/)
-  #   end
-  #
-  #   it 'a server entity is required' do
-  #     expect {
-  #       connection.lbvservers.bind_lbvserver_lbvservermember({ 'serviceGroupName' => 'test-serviceGroup', 'port' => '8080' })
-  #     }.should raise_error(ArgumentError, /serverName/)
-  #   end
-  #
-  #   it 'a port is required' do
-  #     expect {
-  #       connection.lbvservers.bind_lbvserver_lbvservermember({ 'serviceGroupName' => 'test-serviceGroup', 'ip' => '199.199.199.199' })
-  #     }.should raise_error(ArgumentError, /port/)
-  #   end
-  #
-  # end
-  #
-  # context 'when unbinding a server from lbvserver' do
-  #
-  #   it 'a Service group name is required' do
-  #     expect {
-  #       connection.lbvservers.unbind_lbvserver_lbvservermember({ 'port' => '8080', 'ip' => '199.199.199.199' })
-  #     }.should raise_error(ArgumentError, /serviceGroupName/)
-  #   end
-  #
-  #   it 'a server entity is required' do
-  #     expect {
-  #       connection.lbvservers.unbind_lbvserver_lbvservermember({ 'serviceGroupName' => 'test-serviceGroup', 'port' => '8080' })
-  #     }.should raise_error(ArgumentError, /serverName/)
-  #   end
-  #
-  #   it 'a port is required' do
-  #     expect {
-  #       connection.lbvservers.unbind_lbvserver_lbvservermember({ 'serviceGroupName' => 'test-serviceGroup', 'ip' => '199.199.199.199' })
-  #     }.should raise_error(ArgumentError, /port/)
-  #   end
-  #
-  # end
+    it 'should throw an error if :serviceName arg is not given' do
+      expect {
+        connection.lb.vserver.bind.service :name => 'foo'
+      }.should raise_error(ArgumentError, /serviceName/)
+
+      expect {
+        connection.lb.vserver.unbind.service :name => 'foo'
+      }.should raise_error(ArgumentError, /serviceName/)
+
+    end
+
+    it 'should return a Hash if all require arguments are supplied' do
+      result = connection.lb.vserver.bind.service :name => 'foo', :serviceName => ''
+      result.should be_kind_of(Hash)
+      unbind_result = connection.lb.vserver.unbind.service :name => 'foo', :serviceName => ''
+      unbind_result.should be_kind_of(Hash)
+
+    end
+  end
+
+  context 'when [un]binding rewritepolicies to lb vserver' do
+    it 'should throw an error if :name arg is not given' do
+      expect {
+        connection.lb.vserver.bind.rewrite_policy :policyName => 'bar', :priority => '10', :bindpoint => 'request'
+      }.should raise_error(ArgumentError, /name/)
+
+      expect {
+        connection.lb.vserver.unbind.rewrite_policy :policyName => 'bar', :priority => '10', :bindpoint => 'request'
+      }.should raise_error(ArgumentError, /name/)
+
+    end
+
+    it 'should throw an error if :policyName arg is not given' do
+      expect {
+        connection.lb.vserver.bind.rewrite_policy :name => 'foo', :priority => '10', :bindpoint => 'request'
+      }.should raise_error(ArgumentError, /policyName/)
+
+      expect {
+        connection.lb.vserver.unbind.rewrite_policy :name => 'foo', :priority => '10', :bindpoint => 'request'
+      }.should raise_error(ArgumentError, /policyName/)
+    end
+
+    it 'should throw an error if :priority arg is not given' do
+      expect {
+        connection.lb.vserver.bind.rewrite_policy :name => 'foo', :policyName => 'bar', :bindpoint => 'request'
+      }.should raise_error(ArgumentError, /priority/)
+    end
+
+    it 'should throw an error if :bindpoint arg is not given' do
+      expect {
+        connection.lb.vserver.bind.rewrite_policy :name => 'foo', :policyName => 'bar', :priority => '10'
+      }.should raise_error(ArgumentError, /bindpoint/)
+    end
+
+    it 'should return a Hash if all require arguments are supplied' do
+      result = connection.lb.vserver.bind.rewrite_policy :name => 'foo', :policyName => 'bar', :priority => '10', :bindpoint => 'request'
+      result.should be_kind_of(Hash)
+      unbind_result = connection.lb.vserver.unbind.rewrite_policy :name => 'foo', :policyName => 'bar'
+      unbind_result.should be_kind_of(Hash)
+    end
+  end
 
 end

@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/GravityLabs/netscaler.svg?branch=master)](https://travis-ci.org/GravityLabs/netscaler)
+
 = Netscaler Gem
 
 A gem that uses the Netscaler {Nitro API}[http://support.citrix.com/proddocs/topic/netscaler-main-api-10-map/ns-nitro-wrapper-con.html] to access configs and stats.  This has been tested only on Netscaler 9.3.  Hoping to have Netscaler 10.0 support added in the near future.
