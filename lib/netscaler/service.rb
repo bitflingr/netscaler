@@ -30,11 +30,16 @@ module Netscaler
     ##
     # :serverName is optional, if omitted it will return all services
     # configured on the Netscaler.
-    def show(payload) # :args:  :serverName => 'foo'
-      return @netscaler.adapter.get('config/service/', args) if payload.nil?
-      payload = Netscaler.hash_hack(payload)
-      validate_payload(payload, [:serviceName])
-      return @netscaler.adapter.get("config/service/#{payload[:serviceName]}")
+    def show(payload={}) # :args:  :serverName => 'foo'
+      if payload[:serviceName] != nil then
+        payload = Netscaler.hash_hack(payload)
+        validate_payload(payload, [:serviceName])
+        return @netscaler.adapter.get("config/service/#{payload[:serviceName]}")
+      elsif payload == {} then
+        return @netscaler.adapter.get('config/service/')
+      else
+        raise ArgumentError, 'payload supplied must have been missing :serviceName'
+      end
     end
 
     ##
