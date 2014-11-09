@@ -11,7 +11,7 @@ Gem::Specification.new do |s|
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.require_paths = ["lib"]
   s.authors = ["Jeremy Custenborder", "David Andrew", "Jarrett Irons"]
-  s.date = "2014-11-08"
+  s.date = "2014-11-09"
   s.description = "Netscaler api working against the Citrix Nitro api.  Currently supports Nitro 9.3.  Hope to add support for 10.X.  Currently has support for som basics such as adding servers/services/servicegroups."
   s.email = ["jeremy@scarcemedia.com", "david.andrew@webtrends.com", "jarrett.irons@gmail.com"]
   s.extra_rdoc_files = [
