@@ -39,6 +39,13 @@ module Netscaler
         return @netscaler.adapter.post_no_body('config/lbvserver/', {'lbvserver' => payload})
       end
 
+      def stat(payload)
+        raise ArgumentError, 'payload cannot be null' if payload.nil?
+        payload = Netscaler.hash_hack(payload)
+        validate_payload(payload, [:name])
+        return @netscaler.adapter.get("stat/lbvserver/#{payload[:name]}")
+      end
+
       def bind
         Bind.new @netscaler
       end
