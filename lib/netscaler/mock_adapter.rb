@@ -26,7 +26,7 @@ module Netscaler
       options = prepare_options(args)
       options[:content_type] = :json#'application/json'
       post_data = prepare_payload(data)
-      puts "POST /#{url}\n#{post_data}"
+      #puts "POST /#{url}\n#{post_data}"
 
       return process_result(@result, @response)
 

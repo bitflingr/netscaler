@@ -45,7 +45,7 @@ module Netscaler
         check_error(payload)
         return payload
       else
-        raise Exception, 'Shit is broke'
+        raise Exception, "Shit is broke: #{result.inspect}: #{response.inspect}"
       end
     end
 

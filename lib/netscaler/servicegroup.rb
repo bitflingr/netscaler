@@ -43,6 +43,14 @@ module Netscaler
       return @netscaler.adapter.get("config/servicegroup/#{payload}")
     end
 
+    def enable(payload) # :arg: service_group
+      toggle('enable', payload)
+    end
+
+    def disable(payload) # :arg: service_group
+      toggle('disable', payload)
+    end
+
     ##
     # :category: Deprecated Methods
     # DEPRECATED: Please use #show instead=.
@@ -122,6 +130,14 @@ module Netscaler
     def unbind_servicegroup_servicegroupmember(payload)
       warn '[DEPRECATION] "unbind_servicegroup_servicegroupmember" is deprecated.  Please use #unbind instead.'
       self.unbind(payload)
+    end
+
+  private
+    def toggle(toggle_action, payload)
+      raise ArgumentError, 'payload cannot be null' if payload.nil?
+      payload = Netscaler.hash_hack(payload)
+      validate_payload(payload, [:service_group])
+      return @netscaler.adapter.post('config/', {"params" => {"action" => toggle_action}, "servicegroup" => {"servicegroupname" => payload[:service_group]}})
     end
 
   end
