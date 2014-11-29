@@ -47,22 +47,22 @@ describe Netscaler::Server do
   end
 
   %w(enable disable).each do |toggle_action|
-    context "when running server.#{toggle_action}_in_service_group" do
+    context "when running server.#{toggle_action}" do
 
       it ':server is required' do
         expect {
-          connection.servers.send("#{toggle_action}_in_service_group", {:service_group => 'foo'})
+          connection.servers.send(toggle_action, {:service_group => 'foo'})
         }.should raise_error(ArgumentError, /server/)
       end
 
       it ':service_group is required' do
         expect {
-          connection.servers.send("#{toggle_action}_in_service_group", {:server => 'bar'})
+          connection.servers.send(toggle_action, {:server => 'bar'})
         }.should raise_error(ArgumentError, /service_group/)
       end
 
       it 'returns a hash if all necesssary args are supplied' do
-        result = connection.servers.send("#{toggle_action}_in_service_group", :server => 'foo', :service_group => 'bar')
+        result = connection.servers.send(toggle_action, :server => 'foo', :service_group => 'bar')
         result.should be_kind_of(Hash)
       end
 

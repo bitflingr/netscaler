@@ -27,11 +27,11 @@ module Netscaler
       return @netscaler.adapter.delete("config/server/#{payload[:server]}")
     end
 
-    def enable_in_service_group(payload) # :args: :server, :service_group
+    def enable(payload) # :args: :server, :service_group
       toggle('enable', payload)
     end
 
-    def disable_in_service_group(payload) # :args: :server, :service_group
+    def disable(payload) # :args: :server, :service_group
       toggle('disable', payload)
     end
 
