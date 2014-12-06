@@ -5,6 +5,7 @@ require 'netscaler/mock_adapter'
 describe Netscaler::ServiceGroup do
 
   connection = Netscaler::Connection.new 'hostname' => 'foo', 'password' => 'bar', 'username' => 'bar'
+  connection.adapter = Netscaler::MockAdapter.new :body => '{ "errorcode": 0, "message": "Done" }'
 
   context 'when adding a new servicegroup' do
 
@@ -100,4 +101,20 @@ describe Netscaler::ServiceGroup do
 
   end
   
+  %w(enable disable).each do |toggle_action|
+    context "when running servicegroup.#{toggle_action}" do
+
+      it ':service_group is required' do
+        expect {
+          connection.servicegroups.send(toggle_action, {})
+        }.should raise_error(ArgumentError, /service_group/)
+      end
+
+      it 'returns a hash if all necesssary args are supplied' do
+        result = connection.servicegroups.send(toggle_action, :service_group => 'foo')
+        result.should be_kind_of(Hash)
+      end
+
+    end
+  end
 end
