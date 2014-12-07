@@ -51,18 +51,12 @@ describe Netscaler::Server do
 
       it ':server is required' do
         expect {
-          connection.servers.send(toggle_action, {:service_group => 'foo'})
-        }.should raise_error(ArgumentError, /server/)
-      end
-
-      it ':service_group is required' do
-        expect {
-          connection.servers.send(toggle_action, {:server => 'bar'})
-        }.should raise_error(ArgumentError, /service_group/)
+          connection.servers.send(toggle_action, nil)
+        }.should raise_error(ArgumentError, /null/)
       end
 
       it 'returns a hash if all necesssary args are supplied' do
-        result = connection.servers.send(toggle_action, :server => 'foo', :service_group => 'bar')
+        result = connection.servers.send(toggle_action, :server => 'foo')
         result.should be_kind_of(Hash)
       end
 
