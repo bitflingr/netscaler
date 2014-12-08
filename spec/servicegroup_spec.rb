@@ -107,11 +107,11 @@ describe Netscaler::ServiceGroup do
       it ':service_group is required' do
         expect {
           connection.servicegroups.send(toggle_action, {})
-        }.should raise_error(ArgumentError, /service_group/)
+        }.should raise_error(ArgumentError, /serviceGroupName/)
       end
 
       it 'returns a hash if all necesssary args are supplied' do
-        result = connection.servicegroups.send(toggle_action, :service_group => 'foo')
+        result = connection.servicegroups.send(toggle_action, :serviceGroupName => 'foo')
         result.should be_kind_of(Hash)
       end
 
