@@ -51,6 +51,30 @@ module Netscaler
       toggle('disable', payload)
     end
 
+    def enable_server(payload) # :arg: service_group, serverName, port
+      raise ArgumentError, 'payload cannot be null' if payload.nil?
+      payload = Netscaler.hash_hack(payload)
+      validate_payload(payload, [:serviceGroupName, :serverName, :port])
+      return @netscaler.adapter.post('config/', {"params" =>
+                                                     {"action" => "enable"},
+                                                 "servicegroup" =>
+                                                     {"servicegroupname" => payload[:serviceGroupName],
+                                                      "serverName" => payload[:serverName],
+                                                      "port" => payload[:port] }})
+    end
+
+    def disable_server(payload) # :arg: service_group, servername, port
+      raise ArgumentError, 'payload cannot be null' if payload.nil?
+      payload = Netscaler.hash_hack(payload)
+      validate_payload(payload, [:serviceGroupName, :serverName, :port])
+      return @netscaler.adapter.post('config/', {"params" =>
+                                                     {"action" => "disable"},
+                                                 "servicegroup" =>
+                                                     {"servicegroupname" => payload[:serviceGroupName],
+                                                      "serverName" => payload[:serverName],
+                                                      "port" => payload[:port] }})
+    end
+
     ##
     # :category: Deprecated Methods
     # DEPRECATED: Please use #show instead=.
