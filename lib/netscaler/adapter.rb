@@ -7,7 +7,7 @@ module Netscaler
       @session = value
     end
 
-    class FailedRequest< StandardError
+    class FailedRequest < StandardError
       attr_reader :payload
 
       def initialize(message, payload, rest_client_exception=nil)
@@ -43,7 +43,7 @@ module Netscaler
 
     def check_error(payload)
       if payload['errorcode'] != 0
-        e = FailedRequest.new "ErrorCode #{payload['errorcode']} -> #{payload['message']}", payload
+        e = FailedRequest.new("ErrorCode #{payload['errorcode']} -> #{payload['message']}", payload)
         raise e
       end
     end
@@ -54,7 +54,7 @@ module Netscaler
         check_error(payload)
         return payload
       else
-        e = FailedRequest.new "Unexpected Content Type Header #{result.header['content-type']}", response
+        e = FailedRequest.new("Unexpected Content Type Header #{result.header['content-type']}", response)
         raise e
       end
     end
