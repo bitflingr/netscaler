@@ -51,6 +51,10 @@ module Netscaler
       return @servicegroups
     end
 
+    def servicegroup
+      return @servicegroups
+    end
+
     def load_balancing
       return @load_balancing
     end
@@ -64,6 +68,10 @@ module Netscaler
     end
 
     def servers
+      return @servers
+    end
+
+    def server
       return @servers
     end
 
