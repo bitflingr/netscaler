@@ -9,10 +9,39 @@ A gem that uses the Netscaler [Nitro API][1] to access configs and stats.  This 
 
 # THIS IS PRE-ALPHA!!!
 
-It is currently *Pre-Alpha* hence the 0-dot version and is suseptible to methods, classes and modules being renamed, added or deleted.  I will try my best to back support as much as i can but will provide release notes of changes.  Would love to get community support, i have access to a Netscaler and will add this to the spec as well down the road.
+It is currently *Pre-Alpha* hence the 0-dot version and is susceptible to methods, classes and modules being renamed, added or deleted.  I will try my best to back support as much as I can but will provide release notes of changes.  Would love to get community support, I have access to a Netscaler and will add this to the spec as well down the road.
+
+## How it works
+### Connecting to a Netscaler
+All params are hash keys.  So to create a new connection to a netscaler:
+```ruby
+conn = Netscaler::Connection :hostname => 'netscaler01', :username => 'foo', :password => 'bar'
+```
+
+If you want to disable ssl verification provide the optional param :verify_ssl => false
+```ruby
+conn = Netscaler::Connection :hostname => 'netscaler01', :username => 'foo', :password => 'bar', :verify_ssl => false
+```
+
+### Disabling and Enabling a Service
+We try to keep the classes and methods match the command groups that are in the netscaler cli.  So if you are familiar with this then it should be pretty easy to guess what the methods will look like.  Such as:
+
+disable service service01
+```ruby
+conn.service.disable(:name => 'service01')
+```
+
+enable service service01
+```ruby
+conn.service.enable(:name => 'service01')
+```
+
 
 ## TODO
 
+* Classes and methods for Rewrite policies and actions
+* Classes and methods for Responder policies and actions
+* Classes and methods for Content Switching policies
 * Add new definitions for deleting netscaler object entities
 * Add stats
 * Add support for Nitro 10.0, 10.1
