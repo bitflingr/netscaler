@@ -1,4 +1,4 @@
-Copyright (c) 2012 Jeremy Custenborder
+Copyright (c) 2014 Gravity.com, Inc
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the
