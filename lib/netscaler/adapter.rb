@@ -7,6 +7,15 @@ module Netscaler
       @session = value
     end
 
+    class FailedRequest < StandardError
+      attr_reader :payload
+
+      def initialize(message, payload, rest_client_exception=nil)
+        super(message)
+        @payload = payload
+        @rest_client_exception = rest_client_exception
+      end
+    end
 
     :protected
 
@@ -28,24 +37,25 @@ module Netscaler
       end
       options[:accept] = :json
       options[:params] = args[:params] if args.has_key?(:params)
+
       return options
     end
 
     def check_error(payload)
       if payload['errorcode'] != 0
-        raise Exception, "ErrorCode #{payload['errorcode']} -> #{payload['message']}"
+        e = FailedRequest.new("ErrorCode #{payload['errorcode']} -> #{payload['message']}", payload)
+        raise e
       end
     end
 
     def process_result(result, response)
-      #status_code = result.code.to_i
-
       if result.header['content-type'] =~ /application\/json/
         payload = JSON.parse(response)
         check_error(payload)
         return payload
       else
-        raise Exception, "Shit is broke: #{result.inspect}: #{response.inspect}"
+        e = FailedRequest.new("Unexpected Content Type Header #{result.header['content-type']}", response)
+        raise e
       end
     end
 

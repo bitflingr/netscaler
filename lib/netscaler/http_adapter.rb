@@ -18,7 +18,12 @@ module Netscaler
       options[:content_type] = 'application/x-www-form-urlencoded'
 
       post_data = prepare_payload(data)
-      @site[url].post post_data, options
+      begin
+        @site[url].post post_data, options
+      rescue RestClient::Exception => e
+        fr = Netscaler::Adapter::FailedRequest.new "Bad request", e.response , e
+        raise fr
+      end
     end
 
     def post(part, data, args={})
@@ -27,8 +32,13 @@ module Netscaler
       options[:content_type] = 'application/x-www-form-urlencoded'
 
       post_data = prepare_payload(data)
-      @site[url].post post_data, options do |response, request, result|
-        return process_result(result, response)
+      begin
+        @site[url].post post_data, options do |response, request, result|
+          return process_result(result, response)
+        end
+      rescue RestClient::Exception => e
+        fr = Netscaler::Adapter::FailedRequest.new "Bad request", e.response , e
+        raise fr
       end
     end
 
@@ -36,8 +46,13 @@ module Netscaler
       url = get_uri(part)
       options = prepare_options(args)
 
-      @site[url].get options do |response, request, result|
-        return process_result(result, response)
+      begin
+        @site[url].get options do |response, request, result|
+          return process_result(result, response)
+        end
+      rescue RestClient::Exception => e
+        fr = Netscaler::Adapter::FailedRequest.new "Bad request", e.response , e
+        raise fr
       end
     end
 
@@ -45,8 +60,13 @@ module Netscaler
       url = get_uri(part)
       options = prepare_options(args)
 
-      @site[url].delete options do |response, request, result|
-        return process_result(result, response)
+      begin
+        @site[url].delete options do |response, request, result|
+          return process_result(result, response)
+        end
+      rescue RestClient::Exception => e
+        fr = Netscaler::Adapter::FailedRequest.new "Bad request", e.response , e
+        raise fr
       end
     end
 

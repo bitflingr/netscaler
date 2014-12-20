@@ -9,19 +9,11 @@ describe Netscaler::Server do
   context 'when adding a new server' do
     it 'a name is required' do
       expect {
-        connection.servers.add_server({'ipaddress'=>'123.123.123.123'})
-      }.should raise_error(ArgumentError, /name/)
-
-      expect {
         connection.servers.add({'ipaddress'=>'123.123.123.123'})
       }.should raise_error(ArgumentError, /name/)
     end
 
     it 'an ipaddress is required' do
-      expect {
-        connection.servers.add_server({'name'=>'hostname'})
-      }.should raise_error(ArgumentError, /ipaddress/)
-
       expect {
         connection.servers.add({'name'=>'hostname'})
       }.should raise_error(ArgumentError, /ipaddress/)

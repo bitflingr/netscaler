@@ -20,6 +20,21 @@ module Netscaler
       return @netscaler.adapter.post_no_body('config/server/', {'server' => server})
     end
 
+    ##
+    # :serverName is optional, if omitted it will return all servers
+    # configured on the Netscaler.
+    def show(payload={}) # :args:  :serverName => 'foo'
+      if payload[:serverName] != nil then
+        payload = Netscaler.hash_hack(payload)
+        validate_payload(payload, [:serverName])
+        return @netscaler.adapter.get("config/server/#{payload[:serverName]}")
+      elsif payload == {} then
+        return @netscaler.adapter.get('config/server/')
+      else
+        raise ArgumentError, 'payload supplied must have been missing :serverName'
+      end
+    end
+
     def remove(payload) # :args: :server
       raise ArgumentError, 'payload cannot be null' if payload.nil?
       payload = Netscaler.hash_hack(payload)
@@ -55,14 +70,6 @@ module Netscaler
       else
         raise ArgumentError, 'payload supplied must have been missing :server'
       end
-    end
-
-    ##
-    # :category: Deprecated Methods
-    # DEPRECATED: Please use #add instead=.
-    def add_server(server)
-      warn '[DEPRECATION] "add_server" is deprecated.  Please use "#add" instead.'
-      self.add server
     end
 
   private
