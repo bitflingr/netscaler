@@ -10,8 +10,6 @@ describe Netscaler::ServiceGroup do
   context 'when adding a new servicegroup' do
 
     it 'a name is required' do
-      #netscaler.adapter = Netscaler::MockAdapter.new :status_code=>400, :body => '{ "errorcode": 1095, "message": "Required argument missing [name]", "severity": "ERROR" }',
-
       expect {
         connection.servicegroups.add({ 'serviceType' => 'tcp' })
       }.should raise_error(ArgumentError, /serviceGroupName/)
@@ -21,6 +19,24 @@ describe Netscaler::ServiceGroup do
       expect {
         connection.servicegroups.add({ 'serviceGroupName' => 'test-serviceGroup' })
       }.should raise_error(ArgumentError, /serviceType/)
+    end
+
+  end
+
+  context 'when removing a servicegroup' do
+
+    it 'has to require a serviceGroupName' do
+      expect {
+        connection.servicegroups.remove()
+      }.should raise_error(ArgumentError, /wrong number of arguments/)
+      expect {
+        connection.servicegroups.remove(:foo => 'bar')
+      }.should raise_error(ArgumentError, /serviceGroupName/)
+    end
+
+    it 'returns a Hash object if all necessary args are supplied' do
+      result = connection.servicegroups.show_bindings :serviceGroupName => 'foo'
+      result.should be_kind_of(Hash)
     end
 
   end
@@ -73,7 +89,7 @@ describe Netscaler::ServiceGroup do
   %w(enable disable).each do |toggle_action|
     context "when running servicegroup.#{toggle_action}" do
 
-      it ':service_group is required' do
+      it ':serviceGroupName is required' do
         expect {
           connection.servicegroups.send(toggle_action, {})
         }.should raise_error(ArgumentError, /serviceGroupName/)
@@ -85,6 +101,35 @@ describe Netscaler::ServiceGroup do
       end
 
     end
+
+    context "when #{toggle_action} a server in servicegroup" do
+
+      it ':serviceGroupName is required' do
+        expect {
+          connection.servicegroups.send("#{toggle_action}_server", {:serverName => 'foo', :port => '80'})
+        }.should raise_error(ArgumentError, /serviceGroupName/)
+      end
+
+      it ':serviceGroupName is required' do
+        expect {
+          connection.servicegroups.send("#{toggle_action}_server", {:serviceGroupName => 'foo', :port => '80'})
+        }.should raise_error(ArgumentError, /serverName/)
+      end
+
+      it ':serviceGroupName is required' do
+        expect {
+          connection.servicegroups.send("#{toggle_action}_server", {:serviceGroupName => 'bar', :serverName => 'foo'})
+        }.should raise_error(ArgumentError, /port/)
+      end
+
+      it 'should return a Hash if all args are returned' do
+        result = connection.servicegroups.send("#{toggle_action}_server", {:serviceGroupName => 'bar', :serverName => 'foo', :port => '80'})
+        result.should be_kind_of(Hash)
+      end
+
+    end
+
+
   end
 
 end
