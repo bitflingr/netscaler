@@ -1,20 +1,23 @@
 [![Build Status](https://travis-ci.org/GravityLabs/netscaler.svg?branch=master)](https://travis-ci.org/GravityLabs/netscaler)
 
-= Netscaler Gem
+# Netscaler Gem
 
-A gem that uses the Netscaler {Nitro API}[http://support.citrix.com/proddocs/topic/netscaler-main-api-10-map/ns-nitro-wrapper-con.html] to access configs and stats.  This has been tested only on Netscaler 9.3.  Hoping to have Netscaler 10.0 support added in the near future.
+A gem that uses the Netscaler [Nitro API][1] to access configs and stats.  This has been tested only on Netscaler 9.3.  Hoping to have Netscaler 10.0 support added in the near future.
 
-= THIS IS PRE-ALPHA!!!
+[1]: http://support.citrix.com/proddocs/topic/netscaler-main-api-10-map/ns-nitro-wrapper-con.html        "Nitro API"
+
+
+# THIS IS PRE-ALPHA!!!
 
 It is currently *Pre-Alpha* hence the 0-dot version and is suseptible to methods, classes and modules being renamed, added or deleted.  I will try my best to back support as much as i can but will provide release notes of changes.  Would love to get community support, i have access to a Netscaler and will add this to the spec as well down the road.
 
-== TODO
+## TODO
 
 * Add new definitions for deleting netscaler object entities
 * Add stats
 * Add support for Nitro 10.0, 10.1
 
-== Contributing to Netscaler Gem
+## Contributing to Netscaler Gem
  
 * Check out the latest master to make sure the feature hasn't been implemented or the bug hasn't been fixed yet.
 * Check out the issue tracker to make sure someone already hasn't requested it and/or contributed it.
@@ -24,8 +27,8 @@ It is currently *Pre-Alpha* hence the 0-dot version and is suseptible to methods
 * Make sure to add tests for it. This is important so I don't break it in a future version unintentionally.
 * Please try not to mess with the Rakefile, version, or history. If you want to have your own version, or is otherwise necessary, that is fine, but please isolate to its own commit so I can cherry-pick around it.
 
-== Copyright
+## Copyright
 
-Copyright (c) 2012 Jeremy Custenborder. See LICENSE.txt for
+Copyright (c) 2014 Gravity.com, Inc. See LICENSE.txt for
 further details.
 
