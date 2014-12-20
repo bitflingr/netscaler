@@ -10,7 +10,6 @@ module Netscaler
     # method #add requires arg :name but :ipaddress and :domain are optional but requires one of them.
     def add(server) # :args: :name => 'foo', :ipaddress => '192.168.1.10', :domain => 'bar.com'
       raise ArgumentError, 'server cannot be null' if server.nil?
-      server = Netscaler.hash_hack(server)
       if server[:domain] != nil then
         validate_payload(server, [:name, :domain])
       else
@@ -22,7 +21,6 @@ module Netscaler
 
     def remove(payload) # :args: :server
       raise ArgumentError, 'payload cannot be null' if payload.nil?
-      payload = Netscaler.hash_hack(payload)
       validate_payload(payload, [:server])
       return @netscaler.adapter.delete("config/server/#{payload[:server]}")
     end
@@ -37,7 +35,6 @@ module Netscaler
 
     def show_bindings(payload)  # :args:  :server => 'foo'
       raise ArgumentError, 'payload cannot be null' if payload.nil?
-      payload = Netscaler.hash_hack(payload)
       validate_payload(payload, [:server])
       return @netscaler.adapter.get("config/server_binding/#{payload[:server]}")
     end
@@ -47,7 +44,6 @@ module Netscaler
     # configured on the Netscaler.
     def show(payload = {}) # :args:  :server => 'foo'
       if payload[:server] != nil then
-        payload = Netscaler.hash_hack(payload)
         validate_payload(payload, [:server])
         return @netscaler.adapter.get("config/server/#{payload[:server]}")
       elsif payload == {} then
@@ -60,7 +56,6 @@ module Netscaler
   private
     def toggle(toggle_action, payload)
       raise ArgumentError, 'payload cannot be null' if payload.nil?
-      payload = Netscaler.hash_hack(payload)
       #validate_payload(payload, [:server, :service_group])
       validate_payload(payload, [:server])
       return @netscaler.adapter.post('config/', {"params" => {"action" => toggle_action}, "server" => {"name" => payload[:server]}})

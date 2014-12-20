@@ -1,6 +1,7 @@
 module Netscaler
   class NetscalerService
     def validate_payload(payload, required_args)
+      payload = Netscaler.hash_hack(payload)
       raise ArgumentError, 'payload must be a hash.' unless payload.is_a?(Hash)
       missing_args=[]
       required_args.each do |arg|

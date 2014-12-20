@@ -14,7 +14,6 @@ module Netscaler
     # or if it is already configured on the netscaler.
     def add(payload)  # :args: :name, :serverName, :serviceType, :port
       raise ArgumentError, 'payload cannot be null' if payload.nil?
-      payload = Netscaler.hash_hack(payload)
       validate_payload(payload, [:name, :serverName, :serviceType, :port])
       return @netscaler.adapter.post_no_body('config/service/', {'service' => payload})
     end
@@ -24,7 +23,6 @@ module Netscaler
     # configured on the Netscaler.
     def show(payload={}) # :args:  :serverName => 'foo'
       if payload[:serviceName] != nil then
-        payload = Netscaler.hash_hack(payload)
         validate_payload(payload, [:serviceName])
         return @netscaler.adapter.get("config/service/#{payload[:serviceName]}")
       elsif payload == {} then
@@ -36,14 +34,12 @@ module Netscaler
 
     def enable(payload) # :args:  :name => 'foo'
       raise ArgumentError, 'payload cannot be null' if payload.nil?
-      payload = Netscaler.hash_hack(payload)
       validate_payload(payload, [:name])
       return @netscaler.adapter.post_no_body('config/service/', {'params' => {'action' => 'enable'}, 'service' => payload})
     end
 
     def disable(payload) # :args:  :name => 'foo'
       raise ArgumentError, 'payload cannot be null' if payload.nil?
-      payload = Netscaler.hash_hack(payload)
       validate_payload(payload, [:name])
       return @netscaler.adapter.post_no_body('config/service/', {'params' => {'action' => 'disable'}, 'service' => payload})
     end
