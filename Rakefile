@@ -51,3 +51,5 @@ Rake::RDocTask.new do |rdoc|
 end
 
 CLOBBER.include('coverage')
+require 'coveralls'
+Coveralls.wear!

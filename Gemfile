@@ -12,6 +12,7 @@ group :development do
   gem "jeweler", "~> 1.8.8"
   gem 'simplecov'
   gem 'simplecov-rcov'
+  gem 'coveralls', require: false
 end
 
 gem 'rest-client'
