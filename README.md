@@ -47,7 +47,31 @@ conn.service.enable(:name => 'service01')
 * Add support for Nitro 10.0, 10.1
 
 ## Contributing to Netscaler Gem
- 
+
+When writing a new class or method we want to try to follow the same names as the command(s) that is in the NSCLI.  For instance:
+
+NSCLI
+```bash
+add server <name> (<IPAddress> | (<domain>)
+```
+RUBY
+```ruby
+conn.server.add :name => 'foo', :domain => '1.1.1.1'
+```
+
+Here is another example, adding an lb vserver.  We created a sub class of Lb called Netscaler::Lb::Vserver.  So it would look something like:
+
+NSCLI
+```bash
+add lb vserver vip1 HTTP 1.1.1.1 80
+```
+
+RUBY
+```ruby
+conn.lb.vserver.add :name => 'vip1', :serviceType => HTTP, :ipv46 => '1.1.1.1', :port => '80'
+```
+
+Otherwise if there are features that are missing or bugs in the code that need fixing, pull requests are welcome.  I am mostly using this for disabling and enabling services but new features are welcome so long as they follow this convention to keep consistency.
 * Check out the latest master to make sure the feature hasn't been implemented or the bug hasn't been fixed yet.
 * Check out the issue tracker to make sure someone already hasn't requested it and/or contributed it.
 * Fork the project.
