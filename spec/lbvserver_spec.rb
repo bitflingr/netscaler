@@ -52,7 +52,7 @@ describe Netscaler::Lb::Vserver do
     it 'when showing a particular lb vserver string is invalid' do
       expect {
         connection.lb.vserver.show('asdf')
-      }.should raise_error(TypeError, /convert/)
+      }.should raise_error(TypeError, /conver(t|sion)/)
     end
 
     it 'when showing a particular lb vserver :name is required' do

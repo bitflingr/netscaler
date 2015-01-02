@@ -21,7 +21,7 @@ module Netscaler
     ##
     # argument is optional, if left empty it will return all servicegroups
     def show(payload={}) # :arg: servicegroupname
-      return @netscaler.adapter.get("config/servicegroup/") if payload = {}
+      return @netscaler.adapter.get("config/servicegroup/") if payload.empty?
       return @netscaler.adapter.get("config/servicegroup/#{payload}")
     end
 
