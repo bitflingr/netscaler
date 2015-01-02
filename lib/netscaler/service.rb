@@ -18,6 +18,12 @@ module Netscaler
       return @netscaler.adapter.post_no_body('config/service/', {'service' => payload})
     end
 
+    def remove(payload) # :args: :server
+      raise ArgumentError, 'payload cannot be null' if payload.nil?
+      validate_payload(payload, [:name])
+      return @netscaler.adapter.delete("config/service/#{payload[:name]}")
+    end
+
     ##
     # :serverName is optional, if omitted it will return all services
     # configured on the Netscaler.
