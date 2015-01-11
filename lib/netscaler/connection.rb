@@ -12,6 +12,7 @@ require 'netscaler/adapter'
 require 'netscaler/policy'
 require 'netscaler/lb'
 require 'netscaler/rewrite'
+require 'netscaler/responder'
 
 module Netscaler
   class Connection
@@ -35,6 +36,7 @@ module Netscaler
       @policy = Policy.new self
       @lb = Lb.new self
       @rewrite = Rewrite.new self
+      @responder = Responder.new self
     end
 
     def adapter
@@ -71,6 +73,10 @@ module Netscaler
 
     def rewrite
       @rewrite
+    end
+
+    def responder
+      @responder
     end
 
     def servers
