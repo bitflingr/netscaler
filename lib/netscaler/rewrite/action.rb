@@ -4,6 +4,10 @@ module Netscaler
   class Rewrite
     class Action < NetscalerService
 
+      def initialize(netscaler)
+        @netscaler=netscaler
+      end
+
       def show(payload={})
         if payload[:name] != nil then
           validate_payload(payload, [:name])
