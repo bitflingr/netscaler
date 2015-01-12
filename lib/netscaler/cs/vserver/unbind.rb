@@ -22,7 +22,7 @@ module Netscaler
         }
 
 =end
-        def cspolicy(payload)
+        def cs_policy(payload)
           raise ArgumentError, 'payload cannot be null' if payload.nil?
           validate_payload(payload, [:name])
           # Need to find a way to throw optional args as well, including :policyname and :priority
@@ -32,7 +32,7 @@ module Netscaler
         # Creates new methods that share the same args but have slightly different endpoints
         %w( rewrite responder).each do |type|
 
-          define_method(type + 'policy') do |payload|
+          define_method(type + '_policy') do |payload|
             raise ArgumentError, 'payload cannot be null' if payload.nil?
             validate_payload(payload, [:name, :policyName])
             return @netscaler.adapter.post_no_body("config/csvserver_#{type}policy_binding/#{payload['name']}?action=unbind/", {'params' => {'action' => 'unbind'}, "lbvserver_#{type}policy_binding" => payload})
