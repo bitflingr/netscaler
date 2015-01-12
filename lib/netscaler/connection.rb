@@ -11,6 +11,7 @@ require 'netscaler/http_adapter'
 require 'netscaler/adapter'
 require 'netscaler/policy'
 require 'netscaler/lb'
+require 'netscaler/cs'
 require 'netscaler/rewrite'
 require 'netscaler/responder'
 
@@ -35,6 +36,7 @@ module Netscaler
       @servers = Server.new self
       @policy = Policy.new self
       @lb = Lb.new self
+      @cs = Cs.new self
       @rewrite = Rewrite.new self
       @responder = Responder.new self
     end
@@ -69,6 +71,10 @@ module Netscaler
 
     def lb
       @lb
+    end
+
+    def cs
+      @cs
     end
 
     def rewrite
