@@ -1,3 +1,4 @@
+require 'netscaler/cs/policy'
 require 'netscaler/cs/vserver'
 require 'netscaler/cs/vserver/bind'
 require 'netscaler/cs/vserver/unbind'
@@ -11,6 +12,10 @@ module Netscaler
 
     def vserver
       Vserver.new @netscaler
+    end
+
+    def policy
+      Policy.new @netscaler
     end
 
   end

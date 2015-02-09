@@ -22,4 +22,3 @@ module Netscaler
     end
   end
 end
-
