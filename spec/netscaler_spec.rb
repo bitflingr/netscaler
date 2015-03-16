@@ -7,17 +7,17 @@ describe Netscaler do
     it 'a hostname is required' do
       expect {
         netscaler = Netscaler::Connection.new 'username'=> 'foo', 'password' => 'bar'
-      }.should raise_error(ArgumentError, /hostname/)
+      }.to raise_error(ArgumentError, /hostname/)
     end
     it 'a username is required' do
       expect {
         netscaler = Netscaler::Connection.new 'hostname'=> 'foo', 'password' => 'bar'
-      }.should raise_error(ArgumentError, /username/)
+      }.to raise_error(ArgumentError, /username/)
     end
     it 'a password is required' do
       expect {
         netscaler = Netscaler::Connection.new 'username'=> 'foo', 'hostname' => 'bar'
-      }.should raise_error(ArgumentError, /password/)
+      }.to raise_error(ArgumentError, /password/)
     end
     it 'verify_ssl should be true' do
       netscaler = Netscaler::Connection.new 'username'=> 'foo', 'hostname' => 'bar', 'password' => 'baz'
@@ -36,8 +36,8 @@ describe Netscaler do
       netscaler = Netscaler::Connection.new 'username'=> 'foo', 'hostname' => 'bar', 'password' => 'asdf'
       netscaler.adapter = Netscaler::MockAdapter.new :body => '{ "errorcode": 0, "message": "Done", "sessionid": "##074E17E8CD4C9E95A206C2A5E543D82BCDA57F16A7BE74F985733D6C241B" }'
       result = netscaler.login
-      result.should be_a_kind_of(String)
-      result.should == "##074E17E8CD4C9E95A206C2A5E543D82BCDA57F16A7BE74F985733D6C241B"
+      expect(result).to be_a_kind_of(String)
+      expect(result).to eq("##074E17E8CD4C9E95A206C2A5E543D82BCDA57F16A7BE74F985733D6C241B")
     end
   end
 end

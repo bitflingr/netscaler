@@ -10,31 +10,31 @@ describe Netscaler::Server do
     it 'a name is required' do
       expect {
         connection.service.add(:serverName => 'foo', :serviceType => 'HTTP', :port => '80')
-      }.should raise_error(ArgumentError, /name/)
+      }.to raise_error(ArgumentError, /name/)
     end
 
     it 'a serverName is required' do
       expect {
         connection.service.add(:name => 'foo_80', :serviceType => 'HTTP', :port => '80')
-      }.should raise_error(ArgumentError, /serverName/)
+      }.to raise_error(ArgumentError, /serverName/)
     end
 
     it 'a serviceType is required' do
       expect {
         connection.service.add(:name => 'foo_80', :serverName => 'foo', :port => '80')
-      }.should raise_error(ArgumentError, /serviceType/)
+      }.to raise_error(ArgumentError, /serviceType/)
     end
 
     it 'a port is required' do
       expect {
         connection.service.add(:name => 'foo_80', :serverName => 'foo', :serviceType => 'HTTP')
-      }.should raise_error(ArgumentError, /port/)
+      }.to raise_error(ArgumentError, /port/)
     end
 
 
     it 'returns a Hash object if all necessary args are supplied' do
       result = connection.service.add(:name => 'foo_80', :serverName => 'foo', :serviceType => 'HTTP', :port => '80')
-      result.should be_kind_of(Hash)
+      expect(result).to be_kind_of(Hash)
     end
   end
 

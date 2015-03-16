@@ -10,18 +10,18 @@ describe Netscaler::Server do
     it 'a name is required' do
       expect {
         connection.servers.add({'ipaddress'=>'123.123.123.123'})
-      }.should raise_error(ArgumentError, /name/)
+      }.to raise_error(ArgumentError, /name/)
     end
 
     it 'an ipaddress is required' do
       expect {
         connection.servers.add({'name'=>'hostname'})
-      }.should raise_error(ArgumentError, /ipaddress/)
+      }.to raise_error(ArgumentError, /ipaddress/)
     end
 
     it 'returns a Hash object if all necessary args are supplied' do
       result = connection.servers.add :name => 'foo', :domain => 'foo.bar.com'
-      result.should be_kind_of(Hash)
+      expect(result).to be_kind_of(Hash)
     end
   end
 
@@ -29,12 +29,12 @@ describe Netscaler::Server do
     it ':server is required' do
       expect {
         connection.servers.remove({'ipaddress'=>'123.123.123.123'})
-      }.should raise_error(ArgumentError, /server/)
+      }.to raise_error(ArgumentError, /server/)
     end
 
     it 'returns a Hash object if all necessary args are supplied' do
       result = connection.servers.remove :server => 'foo'
-      result.should be_kind_of(Hash)
+      expect(result).to be_kind_of(Hash)
     end
   end
 
@@ -44,12 +44,12 @@ describe Netscaler::Server do
       it ':server is required' do
         expect {
           connection.servers.send(toggle_action, nil)
-        }.should raise_error(ArgumentError, /null/)
+        }.to raise_error(ArgumentError, /null/)
       end
 
       it 'returns a hash if all necesssary args are supplied' do
         result = connection.servers.send(toggle_action, :server => 'foo')
-        result.should be_kind_of(Hash)
+        expect(result).to be_kind_of(Hash)
       end
 
     end
@@ -59,12 +59,12 @@ describe Netscaler::Server do
     it ':server is required' do
       expect {
         connection.servers.show_bindings({})
-      }.should raise_error(ArgumentError, /server/)
+      }.to raise_error(ArgumentError, /server/)
     end
 
     it 'returns a Hash object if all necessary args are supplied' do
       result = connection.servers.show_bindings :server => 'foo'
-      result.should be_kind_of(Hash)
+      expect(result).to be_kind_of(Hash)
     end
   end
 
@@ -72,17 +72,17 @@ describe Netscaler::Server do
     it ':server is required if arguments are specified' do
       expect {
         connection.servers.show_bindings({something: 'notcool'})
-      }.should raise_error(ArgumentError, /server/)
+      }.to raise_error(ArgumentError, /server/)
     end
 
     it 'returns a Hash object if server arg supplied' do
       result = connection.servers.show_bindings :server => 'foo'
-      result.should be_kind_of(Hash)
+      expect(result).to be_kind_of(Hash)
     end
 
     it 'returns a Hash object if no args supplied since it then returns all servers' do
       result = connection.servers.show_bindings :server => 'foo'
-      result.should be_kind_of(Hash)
+      expect(result).to be_kind_of(Hash)
     end
   end
 end
