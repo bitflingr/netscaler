@@ -12,6 +12,7 @@ require 'netscaler/adapter'
 require 'netscaler/policy'
 require 'netscaler/lb'
 require 'netscaler/cs'
+require 'netscaler/ssl'
 require 'netscaler/rewrite'
 require 'netscaler/responder'
 

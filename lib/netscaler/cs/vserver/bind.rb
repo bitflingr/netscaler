@@ -41,6 +41,12 @@ module Netscaler
           return @netscaler.adapter.post_no_body("config/csvserver_responderpolicy_binding/#{payload['name']}", {'params' => {'action' => 'bind'}, 'csvserver_responderpolicy_binding' => payload})
         end
 
+        def lbvserver(payload)
+          raise ArgumentError, 'payload cannot be null' if payload.nil?
+          validate_payload(payload, [:name, :lbvserver])
+          return @netscaler.adapter.post_no_body("config/csvserver_lbvserver_binding/#{payload['name']}", {'params' => {'action' => 'bind'}, 'csvserver_lbvserver_binding' => payload})
+        end
+
       end
     end
   end
