@@ -10,9 +10,9 @@ group :development do
   gem 'rdoc', '~> 4.2'
   gem 'bundler'
   gem 'jeweler', '~> 2.0.1'
-  gem 'simplecov', '~> 0.9'
+  gem 'simplecov', '~> 0.10'
   gem 'simplecov-rcov'
 end
 
-gem 'rest-client', '~> 1.7.3'
+gem 'rest-client', '~> 1.8.0'
 gem 'json', '~> 1.8.2'
