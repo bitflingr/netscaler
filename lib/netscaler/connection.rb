@@ -40,6 +40,7 @@ module Netscaler
       @cs = Cs.new self
       @rewrite = Rewrite.new self
       @responder = Responder.new self
+      @ssl =Ssl.new self
     end
 
     def adapter
@@ -76,6 +77,10 @@ module Netscaler
 
     def cs
       @cs
+    end
+
+    def ssl
+      @ssl
     end
 
     def rewrite
