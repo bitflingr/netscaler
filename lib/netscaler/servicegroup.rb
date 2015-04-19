@@ -75,7 +75,10 @@ module Netscaler
     def toggle(toggle_action, payload)
       raise ArgumentError, 'payload cannot be null' if payload.nil?
       validate_payload(payload, [:serviceGroupName])
-      return @netscaler.adapter.post('config/', {"params" => {"action" => toggle_action}, "servicegroup" => {"servicegroupname" => payload[:service_group]}})
+      service_group_options = {"servicegroupname" => payload[:serviceGroupName]}
+      service_group_options.merge!("serverName" => payload[:serverName]) if payload[:serverName]
+      service_group_options.merge!("port" => payload[:port]) if payload[:port]
+      return @netscaler.adapter.post('config/', {"params" => {"action" => toggle_action}, "servicegroup" => service_group_options})
     end
 
   end
