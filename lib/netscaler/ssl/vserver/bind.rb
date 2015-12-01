@@ -8,8 +8,8 @@ module Netscaler
 
         def sslcertkey(payload)
           raise ArgumentError, 'payload cannot be null' if payload.nil?
-          validate_payload(payload, [:name, :certkeyname])
-          return @netscaler.adapter.post_no_body("config/sslvserver_sslcertkey_binding/#{payload[:vservername]}", {'params' => {'action' => 'bind'}, 'sslvserver_sslcertkey_binding' => payload})
+          validate_payload(payload, [:vservername, :certkeyname])
+          return @netscaler.adapter.post("config/sslvserver_sslcertkey_binding/#{payload[:vservername]}", {'params' => {'action' => 'bind'}, 'sslvserver_sslcertkey_binding' => payload})
         end
 
       end

@@ -1,6 +1,7 @@
 require 'netscaler/ssl/vserver'
 require 'netscaler/ssl/vserver/bind'
 require 'netscaler/ssl/vserver/unbind'
+require 'netscaler/ssl/certkey'
 
 module Netscaler
   class Ssl
@@ -13,5 +14,8 @@ module Netscaler
       Vserver.new @netscaler
     end
 
+    def certkey
+      Certkey.new @netscaler
+    end
   end
 end
