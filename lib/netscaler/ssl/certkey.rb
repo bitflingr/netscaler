@@ -9,7 +9,7 @@ module Netscaler
 
       def add(payload={})
         raise ArgumentError, 'payload cannot be null' if payload.nil?
-        validate_payload(payload, [:certKey, :cert, :key])
+        validate_payload(payload, [:certkey, :cert, :key])
         return @netscaler.adapter.post('config/sslcertkey', { 'sslcertkey' => payload })
       end
     end

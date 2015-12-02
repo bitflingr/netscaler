@@ -120,9 +120,9 @@ describe Netscaler::Cs::Vserver do
     end
 
     it 'should return a Hash if all require arguments are supplied' do
-      result = connection.ssl.vserver.bind.sslcertkey :certkeyname => 'foo', :name => 'bar'
+      result = connection.ssl.vserver.bind.sslcertkey :certkeyname => 'foo', :vservername => 'bar'
       expect(result).to be_kind_of(Hash)
-      unbind_result = connection.ssl.vserver.unbind.sslcertkey :certkeyname => 'foo', :name => 'bar'
+      unbind_result = connection.ssl.vserver.unbind.sslcertkey :certkeyname => 'foo', :vservername => 'bar'
       expect(unbind_result).to be_kind_of(Hash)
 
     end
