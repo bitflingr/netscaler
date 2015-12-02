@@ -81,6 +81,24 @@ describe Netscaler::Cs::Vserver do
     end
   end
 
+  context 'when upding an ssl vserver' do
+    it 'a vservername is required' do
+      expect {
+        connection.ssl.vserver.update()
+      }.to raise_error(ArgumentError, /wrong number/)
+    end
+
+    it 'should return a hash if :vservername is supplied' do
+      result = connection.ssl.vserver.update(
+        :vservername => 'foo',
+        :ssl11 => 'DISABLED',
+        :ssl12 => 'DISABLED',
+
+      )
+      expect(result).to be_kind_of(Hash)
+    end
+  end
+
   context 'when showing ssl vserver bindings' do
     it 'should throw an error if there is no arg' do
       expect {
@@ -128,4 +146,40 @@ describe Netscaler::Cs::Vserver do
     end
   end
 
+  context 'when [un]binding certificate policy to ssl vserver' do
+    it 'should throw an error if :vservername arg is not given' do
+      expect {
+        connection.ssl.vserver.bind.sslpolicy :policyname => 'foo'
+      }.to raise_error(ArgumentError, /vservername/)
+      expect {
+        connection.ssl.vserver.unbind.sslpolicy :policyname => 'foo'
+      }.to raise_error(ArgumentError, /vservername/)
+    end
+
+    it 'should throw an error if :policyname arg is not given' do
+      expect {
+        connection.ssl.vserver.bind.sslpolicy :vservername => 'foo'
+      }.to raise_error(ArgumentError, /policyname/)
+      expect {
+        connection.ssl.vserver.unbind.sslpolicy :vservername => 'foo'
+      }.to raise_error(ArgumentError, /policyname/)
+    end
+
+    it 'should throw an error if :priority arg is not given' do
+      expect {
+        connection.ssl.vserver.bind.sslpolicy :vservername => 'foo'
+      }.to raise_error(ArgumentError, /priority/)
+      expect {
+        connection.ssl.vserver.unbind.sslpolicy :vservername => 'foo'
+      }.to raise_error(ArgumentError, /priority/)
+    end
+
+    it 'should return a Hash if all require arguments are supplied' do
+      result = connection.ssl.vserver.bind.sslpolicy :vservername => 'foo', :policyname => 'bar', :priority => 10
+      expect(result).to be_kind_of(Hash)
+      unbind_result = connection.ssl.vserver.unbind.sslpolicy :vservername => 'foo', :policyname => 'bar', :priority => 10
+      expect(unbind_result).to be_kind_of(Hash)
+
+    end
+  end
 end
