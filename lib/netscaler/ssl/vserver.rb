@@ -36,6 +36,12 @@ module Netscaler
         return @netscaler.adapter.post_no_body('config/sslvserver/', {'sslvserver' => payload})
       end
 
+      def update(payload)
+        raise ArgumentError, 'payload cannot be null' if payload.nil?
+        validate_payload(payload, [:vservername])
+        return @netscaler.adapter.put('config/sslvserver/', {'sslvserver' => payload}, {no_wrapper: true})
+      end
+
       def stat(payload)
         raise ArgumentError, 'payload cannot be null' if payload.nil?
         validate_payload(payload, [:name])

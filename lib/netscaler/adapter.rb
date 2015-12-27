@@ -17,14 +17,17 @@ module Netscaler
       end
     end
 
-    :protected
+    protected
 
-    def prepare_payload(data)
+    def prepare_payload(data, args={})
       if data.is_a?(String)
         post_data = "object=#{data}"
+      elsif args[:no_wrapper]
+        post_data = data.to_json
       else
         post_data = "object=#{data.to_json}"
       end
+
       return post_data
     end
 
@@ -32,9 +35,11 @@ module Netscaler
       options = {
           :cookies=>{}
       }
+
       unless @session.nil?
         options[:cookies]['NITRO_AUTH_TOKEN'] = @session
       end
+
       options[:accept] = :json
       options[:params] = args[:params] if args.has_key?(:params)
 

@@ -18,6 +18,11 @@ module Netscaler
           return @netscaler.adapter.post_no_body("config/lbvserver_service_binding/#{payload['name']}?action=bind/", {'params' => {'action' => 'bind'}, 'lbvserver_rewritepolicy_binding' => payload})
         end
 
+        def responder_policy(payload)
+          raise ArgumentError, 'payload cannot be null' if payload.nil?
+          validate_payload(payload, [:name, :policyname, :priority])
+          return @netscaler.adapter.post_no_body("config/lbvserver_responderpolicy_binding/#{payload['name']}?action=bind/", {'params' => {'action' => 'bind'}, 'lbvserver_responderpolicy_binding' => payload})
+        end
       end
     end
   end
