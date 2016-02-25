@@ -1,4 +1,5 @@
 require 'netscaler/cs/policy'
+require 'netscaler/cs/policylabel'
 require 'netscaler/cs/vserver'
 require 'netscaler/cs/vserver/bind'
 require 'netscaler/cs/vserver/unbind'
@@ -16,6 +17,10 @@ module Netscaler
 
     def policy
       Policy.new @netscaler
+    end
+
+    def policylabel
+      Policylabel.new @netscaler
     end
 
   end
