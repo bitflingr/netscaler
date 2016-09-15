@@ -1,5 +1,6 @@
 require 'netscaler/netscaler_service'
 require 'netscaler/system/file'
+require 'netscaler/system/inferface'
 
 module Netscaler
   class System

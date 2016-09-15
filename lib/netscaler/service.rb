@@ -50,5 +50,16 @@ module Netscaler
       return @netscaler.adapter.post_no_body('config/service/', {'params' => {'action' => 'disable'}, 'service' => payload})
     end
 
+    def stat(payload={})
+      if payload[:name] != nil then
+        validate_payload(payload, [:name])
+        return @netscaler.adapter.get("stat/service/#{payload[:name]}")
+      elsif payload == {} then
+        return @netscaler.adapter.get('stat/service')
+      else
+        raise ArgumentError, 'payload cannot be null' if payload.nil?
+      end
+    end
+
   end
 end
