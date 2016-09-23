@@ -21,8 +21,8 @@ module Netscaler
     ##
     # argument is optional, if left empty it will return all servicegroups
     def show(payload={}) # :arg: servicegroupname
-      return @netscaler.adapter.get("config/servicegroup/") if payload.empty?
-      return @netscaler.adapter.get("config/servicegroup/#{payload}")
+      @netscaler.adapter.get("config/servicegroup/") if payload.empty?
+      @netscaler.adapter.get("config/servicegroup/#{payload}")
     end
 
     def enable(payload) # :arg: service_group
@@ -69,6 +69,17 @@ module Netscaler
       raise ArgumentError, 'payload cannot be null' if payload.nil?
       validate_payload(payload, [:serviceGroupName, :port, :serverName])
       return @netscaler.adapter.post_no_body("config/servicegroup_servicegroupmember_binding/#{payload['serviceGroupName']}?action=unbind", {'params' => {'action' => 'unbind'}, 'servicegroup_servicegroupmember_binding' => payload})
+    end
+
+    def stat(payload={})
+      if payload[:name] != nil then
+        validate_payload(payload, [:name])
+        @netscaler.adapter.get("stat/servicegroup/#{payload[:name]}")
+      elsif payload == {} then
+        @netscaler.adapter.get('stat/servicegroup')
+      else
+        raise ArgumentError, 'payload cannot be null' if payload.nil?
+      end
     end
 
   private
