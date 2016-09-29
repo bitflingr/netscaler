@@ -47,6 +47,22 @@ module Netscaler
     end
 
     def check_error(payload)
+      # TODO:
+      # Need to handle missing entity and unauthorized errors
+      # return http status code 404 and returns the following for missing entity
+      # {
+      #     "errorcode": 344,
+      #     "message": "No Service",
+      #     "severity": "ERROR"
+      # }
+
+      # return http status 403 forbidden and returns the following for unauthorized calls.
+      # {
+      #     "errorcode": 2138,
+      #     "message": "Not authorized to execute this command [disable service sjc1-api0001_8080 0 -graceFul NO]",
+      #     "severity": "ERROR"
+      # }
+
       if payload['errorcode'] != 0
         e = FailedRequest.new("ErrorCode #{payload['errorcode']} -> #{payload['message']}", payload)
         raise e
