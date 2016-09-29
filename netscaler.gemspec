@@ -6,7 +6,7 @@
 
 Gem::Specification.new do |s|
   s.name = "netscaler"
-  s.version = "0.8.0"
+  s.version = "0.8.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.require_paths = ["lib"]
@@ -64,6 +64,7 @@ Gem::Specification.new do |s|
     "lib/netscaler/ssl/vserver/unbind.rb",
     "lib/netscaler/system.rb",
     "lib/netscaler/system/file.rb",
+    "lib/netscaler/system/interface.rb",
     "netscaler.gemspec",
     "spec/cspolicylabel_spec.rb",
     "spec/csvserver_spec.rb",

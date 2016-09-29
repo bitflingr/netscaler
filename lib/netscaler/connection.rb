@@ -16,6 +16,7 @@ require 'netscaler/ssl'
 require 'netscaler/rewrite'
 require 'netscaler/responder'
 require 'netscaler/system'
+require 'netscaler/ha'
 
 module Netscaler
   class Connection
@@ -43,6 +44,7 @@ module Netscaler
       @responder = Responder.new self
       @ssl =Ssl.new self
       @system = System.new self
+      @ha = Ha.new self
     end
 
     def adapter
@@ -95,6 +97,10 @@ module Netscaler
 
     def system
       @system
+    end
+
+    def ha
+      @ha
     end
 
     def servers

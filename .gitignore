@@ -14,6 +14,7 @@ doc
 
 # jeweler generated
 pkg
+*.gem
 
 # rvm files
 .ruby-version
