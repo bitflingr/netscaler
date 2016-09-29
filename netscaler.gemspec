@@ -67,7 +67,6 @@ Gem::Specification.new do |s|
     "lib/netscaler/system.rb",
     "lib/netscaler/system/file.rb",
     "lib/netscaler/system/interface.rb",
-    "netscaler-0.8.1.gem",
     "netscaler.gemspec",
     "spec/cspolicylabel_spec.rb",
     "spec/csvserver_spec.rb",
