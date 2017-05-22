@@ -9,7 +9,7 @@ group :development do
   gem 'rspec', '~> 3.2'
   gem 'rdoc', '~> 4.2'
   gem 'bundler'
-  gem 'jeweler', '~> 2.0.1'
+  gem 'jeweler', '~> 2.3.5'
   gem 'simplecov', '~> 0.10'
   gem 'simplecov-rcov'
 end
