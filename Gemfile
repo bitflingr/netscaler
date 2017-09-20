@@ -1,19 +1,14 @@
-source "http://rubygems.org"
-# Add dependencies required to use your gem here.
-# Example:
-#   gem "activesupport", ">= 2.3.5"
+source 'http://rubygems.org'
+gem 'rest-client', '2.0.2'
 
-# Add dependencies to develop your gem here.
-# Include everything needed to run rake, tests, features, etc.
 group :development do
   gem 'rspec', '~> 3.2'
   gem 'rdoc', '~> 4.2'
   gem 'bundler'
   gem 'jeweler', '~> 2.3.5'
-  gem 'simplecov', '~> 0.10'
-  gem 'simplecov-rcov'
 end
 
-gem 'nokogiri', '~> 1.6.7.2'
-gem 'rest-client', '~> 2.0'
-gem 'json', '~> 2.0.2'
+group :test do
+  gem 'simplecov', '~> 0.10', :require => false
+  gem 'codecov', :require => false
+end

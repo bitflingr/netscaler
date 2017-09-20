@@ -1,4 +1,5 @@
-[![Build Status](https://travis-ci.org/GravityLabs/netscaler.svg?branch=master)](https://travis-ci.org/GravityLabs/netscaler)
+[![Build Status](https://travis-ci.org/bitflingr/netscaler.svg?branch=master)](https://travis-ci.org/bitflingr/netscaler)
+[![codecov](https://codecov.io/gh/bitflingr/netscaler/branch/master/graph/badge.svg)](https://codecov.io/gh/bitflingr/netscaler)
 
 # Netscaler Gem
 
@@ -82,6 +83,6 @@ Otherwise if there are features that are missing or bugs in the code that need f
 
 ## Copyright
 
-Copyright (c) 2014 Gravity.com, Inc. See LICENSE.txt for
+Copyright (c) 2017 Jarrett Irons. See LICENSE.txt for
 further details.
 

@@ -15,7 +15,7 @@ require 'jeweler'
 Jeweler::Tasks.new do |gem|
   # gem is a Gem::Specification... see http://docs.rubygems.org/read/chapter/20 for more options
   gem.name = 'netscaler'
-  gem.homepage = 'http://github.com/GravityLabs/netscaler'
+  gem.homepage = 'http://github.com/bitflingr/netscaler'
   gem.license = 'MIT'
   gem.summary = 'Netscaler api working against the Citrix Nitro api.'
   gem.description = 'Netscaler api working against the Citrix Nitro api.  Currently supports Nitro 9.3.  Hope to add support for 10.X.  Currently has support for som basics such as adding servers/services/servicegroups.'
@@ -38,7 +38,7 @@ end
 #   spec.rcov = true
 # end
 
-task :default => :spec
+task :default => [:spec]
 
 require 'rdoc/task'
 Rake::RDocTask.new do |rdoc|
@@ -51,3 +51,15 @@ Rake::RDocTask.new do |rdoc|
 end
 
 CLOBBER.include('coverage')
+
+
+namespace :codecov do
+  desc 'Uploads the latest simplecov result set to codecov.io'
+  task :upload do
+    require 'simplecov'
+    require 'codecov'
+
+    formatter = SimpleCov::Formatter::Codecov.new
+    formatter.format(SimpleCov::ResultMerger.merged_result)
+  end
+end
