@@ -38,27 +38,37 @@ describe Netscaler::Lb::Vserver do
     end
   end
 
-  context 'when using the show method in Lb::Vserver' do
+  context 'when show|stat method in Lb::Vserver' do
     it 'with no param used it will return all vservers' do
-      result = connection.lb.vserver.show
-      expect(result).to be_kind_of(Hash)
+      expect(connection.lb.vserver.show).to be_kind_of(Hash)
+      expect(connection.lb.vserver.stat).to be_kind_of(Hash)
     end
 
     it 'supplying the name parameter will return Hash' do
-      result = connection.lb.vserver.show :name => 'foo'
-      expect(result).to be_kind_of(Hash)
+      expect(connection.lb.vserver.show :name => 'foo').to be_kind_of(Hash)
+      expect(connection.lb.vserver.stat :name => 'foo').to be_kind_of(Hash)
     end
 
     it 'when showing a particular lb vserver string is invalid' do
       expect {
         connection.lb.vserver.show('asdf')
       }.to raise_error(TypeError, /conver(t|sion)/)
+
+      expect {
+        connection.lb.vserver.stat('asdf')
+      }.to raise_error(TypeError, /conver(t|sion)/)
+
     end
 
     it 'when showing a particular lb vserver :name is required' do
       expect {
         connection.lb.vserver.show(:foo => 'bar')
       }.to raise_error(ArgumentError, /name/)
+      #This should be updated to match the show method.
+      expect {
+        connection.lb.vserver.stat(:foo => 'bar')
+      }.to raise_error(ArgumentError, /name/)
+
     end
   end
 
@@ -81,7 +91,7 @@ describe Netscaler::Lb::Vserver do
     end
   end
 
-  context 'when showing lbvserver bindings' do
+  context 'when show lbvserver bindings' do
     it 'should throw an error if there is no arg' do
       expect {
         connection.lb.vserver.show_binding()
@@ -169,6 +179,44 @@ describe Netscaler::Lb::Vserver do
       expect(result).to be_kind_of(Hash)
       unbind_result = connection.lb.vserver.unbind.rewrite_policy :name => 'foo', :policyName => 'bar'
       expect(unbind_result).to be_kind_of(Hash)
+    end
+  end
+
+  context 'when [un]binding responder policies to lb vserver' do
+    it 'should throw an error if :name arg is not given' do
+      expect {
+        connection.lb.vserver.bind.responder_policy :policyName => 'bar', :priority => '10'
+      }.to raise_error(ArgumentError, /name/)
+
+      expect {
+        connection.lb.vserver.unbind.responder_policy :policyName => 'bar', :priority => '10'
+      }.to raise_error(ArgumentError, /name/)
+
+    end
+
+    it 'should throw an error if :policyName arg is not given' do
+      expect {
+        connection.lb.vserver.bind.responder_policy :name => 'foo', :priority => '10'
+      }.to raise_error(ArgumentError, /policyName/)
+
+      expect {
+        connection.lb.vserver.unbind.responder_policy :name => 'foo', :priority => '10'
+      }.to raise_error(ArgumentError, /policyName/)
+    end
+
+    it 'should throw an error if :priority arg is not given' do
+      expect {
+        connection.lb.vserver.bind.responder_policy :name => 'foo', :policyName => 'bar'
+      }.to raise_error(ArgumentError, /priority/)
+    end
+
+    it 'should return a Hash if all require arguments are supplied' do
+      expect(
+        connection.lb.vserver.bind.responder_policy :name => 'foo', :policyName => 'bar', :priority => '10'
+      ).to be_kind_of(Hash)
+      expect(
+        connection.lb.vserver.unbind.responder_policy :name => 'foo', :policyName => 'bar'
+      ).to be_kind_of(Hash)
     end
   end
 

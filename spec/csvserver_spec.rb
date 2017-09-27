@@ -38,26 +38,35 @@ describe Netscaler::Cs::Vserver do
     end
   end
 
-  context 'when using the show method in Cs::Vserver' do
+  context 'when using the show|stat method in Cs::Vserver' do
     it 'with no param used it will return all vservers' do
-      result = connection.cs.vserver.show
-      expect(result).to be_kind_of(Hash)
+      expect(connection.cs.vserver.show).to be_kind_of(Hash)
+      expect(connection.cs.vserver.stat).to be_kind_of(Hash)
     end
 
     it 'supplying the name parameter will return Hash' do
-      result = connection.cs.vserver.show :name => 'foo'
-      expect(result).to be_kind_of(Hash)
+      expect(connection.cs.vserver.show :name => 'foo').to be_kind_of(Hash)
+      expect(connection.cs.vserver.stat :name => 'foo').to be_kind_of(Hash)
     end
 
     it 'when showing a particular lb vserver string is invalid' do
       expect {
         connection.cs.vserver.show('asdf')
       }.to raise_error(TypeError, /conver(t|sion)/)
+
+      expect {
+        connection.cs.vserver.stat('asdf')
+      }.to raise_error(TypeError, /conver(t|sion)/)
+
     end
 
     it 'when showing a particular lb vserver :name is required' do
       expect {
         connection.cs.vserver.show(:foo => 'bar')
+      }.to raise_error(ArgumentError, /name/)
+
+      expect {
+        connection.cs.vserver.stat(:foo => 'bar')
       }.to raise_error(ArgumentError, /name/)
     end
   end
@@ -127,7 +136,13 @@ describe Netscaler::Cs::Vserver do
       expect(result).to be_kind_of(Hash)
       unbind_result = connection.cs.vserver.unbind.cs_policy :name => 'foo'
       expect(unbind_result).to be_kind_of(Hash)
+    end
+  end
 
+  context 'when []binding default lb vserver to cs vserver' do
+    it 'should return a Hash if all required args are supplied' do
+      result = connection.cs.vserver.bind.lbvserver :name => 'foo', :lbvserver =>'bar'
+      expect(result).to be_kind_of(Hash)
     end
   end
 

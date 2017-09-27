@@ -43,7 +43,7 @@ module Netscaler
         elsif payload == {} then
           return @netscaler.adapter.get('stat/csvserver')
         else
-          raise ArgumentError, 'payload cannot be null' if payload.nil?
+          raise ArgumentError, 'payload supplied must have been missing :name'
         end
       end
 

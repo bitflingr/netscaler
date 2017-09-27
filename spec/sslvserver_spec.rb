@@ -182,4 +182,33 @@ describe Netscaler::Cs::Vserver do
 
     end
   end
+
+  context 'when [un]binding ecccurve to ssl vserver' do
+    it 'should throw an error if :vservername arg is not given' do
+      expect {
+        connection.ssl.vserver.bind.ecccurve :ecccurvename => 'foo'
+      }.to raise_error(ArgumentError, /vservername/)
+      expect {
+        connection.ssl.vserver.unbind.ecccurve :policyname => 'foo'
+      }.to raise_error(ArgumentError, /vservername/)
+    end
+
+    it 'should throw an error if :ecccurvename arg is not given' do
+      expect {
+        connection.ssl.vserver.bind.ecccurve :vservername => 'foo'
+      }.to raise_error(ArgumentError, /ecccurvename/)
+      expect {
+        connection.ssl.vserver.unbind.ecccurve :vservername => 'foo'
+      }.to raise_error(ArgumentError, /ecccurvename/)
+    end
+
+    it 'should return a Hash if all require arguments are supplied' do
+      result = connection.ssl.vserver.bind.ecccurve :vservername => 'foo', :ecccurvename => 'bar'
+      expect(result).to be_kind_of(Hash)
+      unbind_result = connection.ssl.vserver.unbind.ecccurve :vservername => 'foo', :ecccurvename => 'bar'
+      expect(unbind_result).to be_kind_of(Hash)
+
+    end
+  end
+
 end

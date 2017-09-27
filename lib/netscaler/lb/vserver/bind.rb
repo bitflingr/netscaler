@@ -20,7 +20,7 @@ module Netscaler
 
         def responder_policy(payload)
           raise ArgumentError, 'payload cannot be null' if payload.nil?
-          validate_payload(payload, [:name, :policyname, :priority])
+          validate_payload(payload, [:name, :policyName, :priority])
           return @netscaler.adapter.post_no_body("config/lbvserver_responderpolicy_binding/#{payload['name']}?action=bind/", {'params' => {'action' => 'bind'}, 'lbvserver_responderpolicy_binding' => payload})
         end
       end

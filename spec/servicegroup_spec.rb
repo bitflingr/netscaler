@@ -8,7 +8,6 @@ describe Netscaler::ServiceGroup do
   connection.adapter = Netscaler::MockAdapter.new :body => '{ "errorcode": 0, "message": "Done" }'
 
   context 'when adding a new servicegroup' do
-
     it 'a name is required' do
       expect {
         connection.servicegroups.add({ 'serviceType' => 'tcp' })
@@ -21,10 +20,13 @@ describe Netscaler::ServiceGroup do
       }.to raise_error(ArgumentError, /serviceType/)
     end
 
+    it 'returns a Hash object if all necessary args are supplied' do
+      result = connection.servicegroups.add :serviceGroupName => 'foo', 'serviceType' => 'bar'
+      expect(result).to be_kind_of(Hash)
+    end
   end
 
   context 'when removing a servicegroup' do
-
     it 'has to require a serviceGroupName' do
       expect {
         connection.servicegroups.remove()
@@ -35,15 +37,13 @@ describe Netscaler::ServiceGroup do
     end
 
     it 'returns a Hash object if all necessary args are supplied' do
-      result = connection.servicegroups.show_bindings :serviceGroupName => 'foo'
+      result = connection.servicegroups.remove :serviceGroupName => 'foo'
       expect(result).to be_kind_of(Hash)
     end
-
   end
 
 
   context 'when binding a new server to servicegroup' do
-
     it 'a Service group name is required' do
       expect {
         connection.servicegroups.bind({ 'port'=> '8080', 'ip' => '199.199.199.199' })
@@ -62,10 +62,13 @@ describe Netscaler::ServiceGroup do
       }.to raise_error(ArgumentError, /port/)
     end
 
+    it 'returns a Hash object if all necessary args are supplied' do
+      result = connection.servicegroups.bind :serviceGroupName => 'foo', :port => '80', :serverName => 'foo_80'
+      expect(result).to be_kind_of(Hash)
+    end
   end
 
   context 'when unbinding a server from servicegroup' do
-
     it 'a Service group name is required' do
       expect {
         connection.servicegroups.unbind({ 'port' => '8080', 'ip' => '199.199.199.199' })
@@ -84,11 +87,14 @@ describe Netscaler::ServiceGroup do
       }.to raise_error(ArgumentError, /port/)
     end
 
+    it 'returns a Hash object if all necessary args are supplied' do
+      result = connection.servicegroups.unbind :serviceGroupName => 'foo', :port => '80', :serverName => 'foo_80'
+      expect(result).to be_kind_of(Hash)
+    end
   end
 
   %w(enable disable).each do |toggle_action|
     context "when running servicegroup.#{toggle_action}" do
-
       it ':serviceGroupName is required' do
         expect {
           connection.servicegroups.send(toggle_action, {})
@@ -99,11 +105,9 @@ describe Netscaler::ServiceGroup do
         result = connection.servicegroups.send(toggle_action, :serviceGroupName => 'foo')
         expect(result).to be_kind_of(Hash)
       end
-
     end
 
     context "when #{toggle_action} a server in servicegroup" do
-
       it ':serviceGroupName is required' do
         expect {
           connection.servicegroups.send("#{toggle_action}_server", {:serverName => 'foo', :port => '80'})
@@ -126,7 +130,6 @@ describe Netscaler::ServiceGroup do
         result = connection.servicegroups.send("#{toggle_action}_server", {:serviceGroupName => 'bar', :serverName => 'foo', :port => '80'})
         expect(result).to be_kind_of(Hash)
       end
-
     end
 
 

@@ -31,4 +31,17 @@ describe Netscaler::System::File do
       expect(result).to be_kind_of(Hash)
     end
   end
+
+  context 'when removing a certkey' do
+    it 'a certkey is required' do
+      expect {
+        connection.ssl.certkey.remove :foo => 'bar'
+      }.to raise_error(ArgumentError, /certkey/)
+    end
+
+    it 'return hash when supplied all required params' do
+      result = connection.ssl.certkey.remove :certkey => 'foo'
+      expect(result).to be_kind_of(Hash)
+    end
+  end
 end

@@ -11,10 +11,8 @@ module Netscaler
         if payload[:name] != nil then
           validate_payload(payload, [:name])
           return @netscaler.adapter.get("config/interface/#{payload[:name]}")
-        elsif payload == {} then
-          return @netscaler.adapter.get('config/interface/')
         else
-          raise ArgumentError, 'payload supplied must have been missing :name'
+          return @netscaler.adapter.get('config/interface/')
         end
       end
 
@@ -23,10 +21,8 @@ module Netscaler
         if payload[:name] != nil then
           validate_payload(payload, [:name])
           return @netscaler.adapter.get("stat/interface/#{payload[:name]}")
-        elsif payload == {} then
-          return @netscaler.adapter.get('stat/interface')
         else
-          raise ArgumentError, 'payload cannot be null' if payload.nil?
+          return @netscaler.adapter.get('stat/interface')
         end
       end
 

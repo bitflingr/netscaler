@@ -85,4 +85,23 @@ describe Netscaler::Server do
       expect(result).to be_kind_of(Hash)
     end
   end
+
+
+  context 'when show a service' do
+    it 'server is required' do
+      expect {
+        connection.server.show(:bar => 'foo')
+      }.to raise_error(ArgumentError, /server/)
+    end
+
+    it 'returns a Hash object if all necessary args are supplied' do
+      result = connection.server.show(:server => 'foo')
+      expect(result).to be_kind_of(Hash)
+    end
+
+    it 'returns a Hash object if 0 args are supplied' do
+      result = connection.server.show
+      expect(result).to be_kind_of(Hash)
+    end
+  end
 end

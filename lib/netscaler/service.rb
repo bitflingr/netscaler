@@ -60,10 +60,8 @@ module Netscaler
       if payload[:name] != nil then
         validate_payload(payload, [:name])
         @netscaler.adapter.get("stat/service/#{payload[:name]}")
-      elsif payload == {} then
-        @netscaler.adapter.get('stat/service')
       else
-        raise ArgumentError, 'payload cannot be null' if payload.nil?
+        @netscaler.adapter.get('stat/service')
       end
     end
 

@@ -6,58 +6,58 @@
 
 Gem::Specification.new do |s|
   s.name = "netscaler".freeze
-  s.version = "0.8.2"
+  s.version = '0.8.2'
 
-  s.required_rubygems_version = Gem::Requirement.new(">= 0".freeze) if s.respond_to? :required_rubygems_version=
-  s.require_paths = ["lib".freeze]
-  s.authors = ["Jeremy Custenborder".freeze, "David Andrew".freeze, "Jarrett Irons".freeze]
-  s.date = "2017-05-22"
-  s.description = "Netscaler api working against the Citrix Nitro api.  Currently supports Nitro 9.3.  Hope to add support for 10.X.  Currently has support for som basics such as adding servers/services/servicegroups.".freeze
-  s.email = ["jeremy@scarcemedia.com".freeze, "david.andrew@webtrends.com".freeze, "jarrett.irons@gmail.com".freeze]
-  s.extra_rdoc_files = [
-    "LICENSE.txt",
-    "README.md"
-  ]
+  s.required_rubygems_version = Gem::Requirement.new('>= 0'.freeze) if s.respond_to? :required_rubygems_version=
+  s.require_paths = ['lib'.freeze]
+  s.authors = ['Jeremy Custenborder'.freeze, 'David Andrew'.freeze, 'Jarrett Irons'.freeze]
+  s.date = '2017-05-22'
+  s.description = 'Netscaler api working against the Citrix Nitro api.  Currently supports Nitro 9.3.  Hope to add support for 10.X.  Currently has support for som basics such as adding servers/services/servicegroups.'.freeze
+  s.email = ['jeremy@scarcemedia.com'.freeze, 'david.andrew@webtrends.com'.freeze, 'jarrett.irons@gmail.com'.freeze]
+  s.extra_rdoc_files = %w(
+    LICENSE.txt
+    README.md
+  )
   s.files = `git ls-files 2>/dev/null`.split($/)
-  s.homepage = "http://github.com/bitflingr/netscaler".freeze
-  s.licenses = ["MIT".freeze]
-  s.rubygems_version = "2.6.11".freeze
-  s.summary = "Netscaler api working against the Citrix Nitro api.".freeze
+  s.homepage = 'http://github.com/bitflingr/netscaler'.freeze
+  s.licenses = ['MIT'.freeze]
+  s.rubygems_version = '2.6.11'.freeze
+  s.summary = 'Netscaler api working against the Citrix Nitro api.'.freeze
 
   if s.respond_to? :specification_version then
     s.specification_version = 4
 
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
-      s.add_runtime_dependency(%q<nokogiri>.freeze, ["~> 1.6.7.2"])
-      s.add_runtime_dependency(%q<rest-client>.freeze, ["~> 2.0"])
-      s.add_runtime_dependency(%q<json>.freeze, ["~> 2.0.2"])
-      s.add_development_dependency(%q<rspec>.freeze, ["~> 3.2"])
-      s.add_development_dependency(%q<rdoc>.freeze, ["~> 4.2"])
-      s.add_development_dependency(%q<bundler>.freeze, [">= 0"])
-      s.add_development_dependency(%q<jeweler>.freeze, ["~> 2.3.5"])
-      s.add_development_dependency(%q<simplecov>.freeze, ["~> 0.10"])
-      s.add_development_dependency(%q<simplecov-rcov>.freeze, [">= 0"])
+      s.add_runtime_dependency(%q<nokogiri>.freeze, ['~> 1.6.7.2'])
+      s.add_runtime_dependency(%q<rest-client>.freeze, ['~> 2.0'])
+      s.add_runtime_dependency(%q<json>.freeze, ['~> 2.0.2'])
+      s.add_development_dependency(%q<rspec>.freeze, ['~> 3.2'])
+      s.add_development_dependency(%q<rdoc>.freeze, ['~> 4.2'])
+      s.add_development_dependency(%q<bundler>.freeze, ['>= 0'])
+      s.add_development_dependency(%q<jeweler>.freeze, ['~> 2.3.5'])
+      s.add_development_dependency(%q<simplecov>.freeze, ['~> 0.10'])
+      s.add_development_dependency(%q<simplecov-rcov>.freeze, ['>= 0'])
     else
-      s.add_dependency(%q<nokogiri>.freeze, ["~> 1.6.7.2"])
-      s.add_dependency(%q<rest-client>.freeze, ["~> 2.0"])
-      s.add_dependency(%q<json>.freeze, ["~> 2.0.2"])
-      s.add_dependency(%q<rspec>.freeze, ["~> 3.2"])
-      s.add_dependency(%q<rdoc>.freeze, ["~> 4.2"])
-      s.add_dependency(%q<bundler>.freeze, [">= 0"])
-      s.add_dependency(%q<jeweler>.freeze, ["~> 2.3.5"])
-      s.add_dependency(%q<simplecov>.freeze, ["~> 0.10"])
-      s.add_dependency(%q<simplecov-rcov>.freeze, [">= 0"])
+      s.add_dependency(%q<nokogiri>.freeze, ['~> 1.6.7.2'])
+      s.add_dependency(%q<rest-client>.freeze, ['~> 2.0'])
+      s.add_dependency(%q<json>.freeze, ['~> 2.0.2'])
+      s.add_dependency(%q<rspec>.freeze, ['~> 3.2'])
+      s.add_dependency(%q<rdoc>.freeze, ['~> 4.2'])
+      s.add_dependency(%q<bundler>.freeze, ['>= 0'])
+      s.add_dependency(%q<jeweler>.freeze, ['~> 2.3.5'])
+      s.add_dependency(%q<simplecov>.freeze, ['~> 0.10'])
+      s.add_dependency(%q<simplecov-rcov>.freeze, ['>= 0'])
     end
   else
-    s.add_dependency(%q<nokogiri>.freeze, ["~> 1.6.7.2"])
-    s.add_dependency(%q<rest-client>.freeze, ["~> 2.0"])
-    s.add_dependency(%q<json>.freeze, ["~> 2.0.2"])
-    s.add_dependency(%q<rspec>.freeze, ["~> 3.2"])
-    s.add_dependency(%q<rdoc>.freeze, ["~> 4.2"])
-    s.add_dependency(%q<bundler>.freeze, [">= 0"])
-    s.add_dependency(%q<jeweler>.freeze, ["~> 2.3.5"])
-    s.add_dependency(%q<simplecov>.freeze, ["~> 0.10"])
-    s.add_dependency(%q<simplecov-rcov>.freeze, [">= 0"])
+    s.add_dependency(%q<nokogiri>.freeze, ['~> 1.6.7.2'])
+    s.add_dependency(%q<rest-client>.freeze, ['~> 2.0'])
+    s.add_dependency(%q<json>.freeze, ['~> 2.0.2'])
+    s.add_dependency(%q<rspec>.freeze, ['~> 3.2'])
+    s.add_dependency(%q<rdoc>.freeze, ['~> 4.2'])
+    s.add_dependency(%q<bundler>.freeze, ['>= 0'])
+    s.add_dependency(%q<jeweler>.freeze, ['~> 2.3.5'])
+    s.add_dependency(%q<simplecov>.freeze, ['~> 0.10'])
+    s.add_dependency(%q<simplecov-rcov>.freeze, ['>= 0'])
   end
 end
 
